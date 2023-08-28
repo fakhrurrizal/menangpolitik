@@ -1,0 +1,496 @@
+<style>
+  .title-news:hover {
+    color: #9333ea;
+  }
+  .text-truncate-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .text-truncate-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      70.71% 70.71% at 50% 50%,
+      rgba(0, 23, 28, 0.5) 0%,
+      rgba(0, 11, 14, 0.7) 46.15%,
+      rgba(0, 11, 14, 0.82) 100%
+    );
+  }
+  .carousel-item img {
+    height: 50%;
+    object-fit: cover;
+  }
+
+  .carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .list__berita {
+    color: #022b55;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+  }
+
+  .list__berita_news {
+    color: #022b55;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+    font-size: 14px !important;
+  }
+  .category__news {
+    color: #616161;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: capitalize;
+  }
+
+  .category__news_list {
+    color: #616161;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: capitalize;
+    margin-top: -15px;
+  }
+
+  .lihat__selengkapnya {
+    color: #022b55;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    margin-top: 20px;
+    line-height: 22px;
+    font-size: 14px !important;
+  }
+
+  .topik__terkini {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22.75px;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+
+  .title__hero {
+    position: absolute;
+    background-color: black;
+    padding: 60px 32px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    bottom: 10;
+  }
+  #latestTitle {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+    margin-top: 10px;
+  }
+
+  #latestTitle:hover {
+    color: #dcdbdb;
+  }
+  .publish {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    margin-top: 5px;
+  }
+  .tags__list {
+    font-weight: 600;
+    font-size: 14px;
+    font-family: Poppins;
+  }
+
+  .card__category {
+    cursor: pointer;
+    border-radius: 0px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .card__category:hover {
+    color: white;
+    background-color: #460a83;
+  }
+  .breadcrumb {
+    background-color: transparent;
+    font-family: Poppins;
+    color: #121212;
+    font-weight: 500;
+    font-size: 17px;
+    margin-left: -14px !important;
+  }
+
+  .breadcrumb-item {
+    background-color: transparent;
+  }
+
+  .breadcrumb li.active a {
+    color: blue;
+  }
+</style>
+
+<div class="container pb-5 mt-100" style="color: #121212;">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb" id="breadcrumb"></ol>
+  </nav>
+  <div class="row" id="listNews">
+    <div class="col-md-8">
+      <div style="position: relative;">
+        <img
+          id="latestImage"
+          src=""
+          alt=""
+          style="
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+            position: relative;
+            border-radius: 4px;
+          "
+        />
+        <div
+          class="title__hero"
+          style="
+            position: absolute;
+            bottom: 0px;
+            width: 100%;
+            color: white;
+            font-family: Poppins;
+          "
+        >
+          <span class="topik__terkini">Berita Top Terkini </span>
+          <div style="margin-top: 10px;">
+            <a id="latestTitle">${item.title}</a>
+          </div>
+          <div class="publish mt-4">
+            <img
+              src="{{.layoutData.FrontEndUrl}}/assets/images/calender.svg"
+              alt="calender"
+              style="width: 18px; height: 18px; margin-top: -3px;"
+            />
+            <span id="publish_news" class="mx-2"></span> |
+            <img
+              src="{{.layoutData.FrontEndUrl}}/assets/images/pen.png"
+              alt="calender"
+              style="width: 18px; height: 18px;"
+              class="mx-2"
+            /><span id="author_news"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="list">
+        <div class="d-flex w-100 justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <hr class="mt-5" />
+      <div id="pagination" class="text-center"></div>
+      <div class="row"></div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="mt-100">
+        <span style="font-family: Poppins; font-weight: 600;"
+          >Berita Terpopuler</span
+        >
+        <hr
+          style="
+            height: 3px;
+            border: 0;
+            background: linear-gradient(to right, #460a83 50%, #7c7d8a 50%);
+          "
+        />
+        <div id="news_category"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let categoryID = "{{.Category_id}}";
+
+  function calculateTimeDifference(publishAt) {
+    const currentTime = new Date();
+    const publishTime = new Date(publishAt);
+    const timeDifference = currentTime - publishTime;
+
+    const secondsDifference = Math.floor(timeDifference / 1000);
+    const minutesDifference = Math.floor(secondsDifference / 60);
+    const hoursDifference = Math.floor(minutesDifference / 60);
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference > 0) {
+      return `${daysDifference} hari yang lalu`;
+    } else if (hoursDifference > 0) {
+      return `${hoursDifference} jam yang lalu`;
+    } else if (minutesDifference > 0) {
+      return `${minutesDifference} menit yang lalu`;
+    } else {
+      return `${secondsDifference} detik yang lalu`;
+    }
+  }
+
+  function getNews(page = 1) {
+    var url =
+      API_URL +
+      `/v1/landing-page/news?limit=10&page=` +
+      page +
+      `&category_id=` +
+      categoryID;
+
+    var categoryUrl = API_URL + `/v1/landing-page/news/category/${categoryID}`;
+    $.get(categoryUrl, function (response) {
+      const newsTitle = "{{.Title}}";
+      const categoryName = "{{.CategoryName}}";
+      const categoryId = "{{.CategoryId}}";
+     
+
+      const breadcrumbElement = document.getElementById("breadcrumb");
+
+      const homeBreadcrumb = document.createElement("li");
+      homeBreadcrumb.classList.add("breadcrumb-item");
+      homeBreadcrumb.innerHTML = '<a href="/wawasan">News</a>';
+      breadcrumbElement.appendChild(homeBreadcrumb);
+
+      const newsCategoryBreadcrumb = document.createElement("li");
+      newsCategoryBreadcrumb.classList.add("breadcrumb-item");
+      newsCategoryBreadcrumb.innerHTML = `<a>${response.data.name}</a>`;
+      breadcrumbElement.appendChild(newsCategoryBreadcrumb);
+    });
+
+    $.get(url, function (res) {
+      ListCategory(res);
+
+      var card = "";
+
+      var list = "";
+
+      const latestData = res.data[res.data.length - 1];
+
+      const timePublish = calculateTimeDifference(latestData.publish_at);
+
+      const latestPublishElement = document.getElementById("publish_news");
+
+      const latestAuthorElement = document.getElementById("author_news");
+
+      latestPublishElement.innerText = timePublish;
+
+      latestAuthorElement.innerText = latestData.author;
+
+      const latestImageElement = document.getElementById("latestImage");
+
+      const latestTitleElement = document.getElementById("latestTitle");
+
+      const maxLength = 65;
+
+      if (latestData.title.length > maxLength) {
+        latestTitleElement.innerText =
+          latestData.title.slice(0, maxLength) + "...";
+      } else {
+        latestTitleElement.innerText = latestData.title;
+      }
+
+      latestTitleElement.href = `/news/${latestData.category.name}/${latestData.slug}`;
+      latestImageElement.src = latestData.image;
+      latestImageElement.alt = latestData.title;
+
+      $.each(res.data, function (index, item) {
+        const timeDifference = calculateTimeDifference(item.publish_at);
+
+        const uniqueTagsSet = new Set();
+        item.tags.forEach((tag) => uniqueTagsSet.add(tag.toLowerCase()));
+
+        const uniqueTagsArray = Array.from(uniqueTagsSet);
+
+        const tagsHTML = uniqueTagsArray
+          .map((tag) => `<span class="tags__list">#${tag}</span>`)
+          .join(" ");
+
+        const tagNewsElement = document.getElementById("tag_news");
+        if (tagNewsElement) {
+          tagNewsElement.innerHTML += tagsHTML;
+        }
+
+        if (index !== res.data.length - 1) {
+          list += `
+          <div class="d-flex mt-5" style="align-items: center;">
+            <a href="/news/${item.category.name}/${item.slug}" style="display: inline-block; vertical-align: top;">
+              <img src="${item.image}" alt="${
+            item.title
+          }" width="160px" height="100px" style="float: left; margin-right: 10px; border-radius: 5px;">
+              
+            </a>
+            <div style="display: inline-block; vertical-align: top;" class="ml-4">
+              <h4 class="list__berita" style="font-size: 16px; font-family: Poppins; margin: 0;">
+                <a href="/news/${item.category.name}/${item.slug}">${item.title}</a>
+              </h4>
+              <p style="font-size: 14px; font-family: Poppins; margin: 0;line-height:20px; font-weight:500"><a href="/news/${item.category.name}/${item.slug}">${item.description.slice(0, 150)}... </a></p>
+              <span class="category__news "> ${
+                item.category.name
+              } | ${timeDifference}</span>
+            </div>
+          </div>
+        `;
+        }
+      });
+
+      $("#list").html(list);
+      createPagination(
+        "pagination",
+        res.total_page,
+        page,
+        res.limit,
+        res.recordsTotal
+      );
+    });
+  }
+
+  function ListCategory(datas) {
+    var url = API_URL + `/v1/landing-page/news?category_id=` + categoryID;
+    var categoryHTML = "";
+
+    $.get(url, function (res) {
+      $.each(res.data, function (index, categoryItem) {
+        categoryHTML += `
+            <div class="d-flex mt-3" style="align-items: center;">
+              <a href="/news/${categoryItem.category.name}/${categoryItem.slug}" style="display: inline-block; vertical-align: top;">
+                <img src="${categoryItem.image}" alt="${categoryItem.title}" width="80px" height="60px" style="float: left; margin-right: 10px; border-radius: 5px;" />
+              </a>
+              <div style="display: inline-block; vertical-align: top;" class="ml-4">
+                <h4 class="list__berita_news" style="font-size: 9px; font-family: Poppins; margin: 0;">
+                  <a href="/news/${categoryItem.category.name}/${categoryItem.slug}">${categoryItem.title}</a>
+                </h4>
+                <span class="category__news_list">${categoryItem.category.name}</span>
+              </div>
+            </div>
+          `;
+      });
+      $("#news_category").html(categoryHTML);
+    });
+  }
+
+  function createPagination(
+    elementId,
+    totalPage,
+    currentPage,
+    limit,
+    recordsTotal
+  ) {
+    function createPaginationButton(label, pageNumber) {
+      const button = document.createElement("a");
+      button.innerHTML = label;
+      button.addEventListener("click", () => {
+        getNews(pageNumber);
+        console.log(`Go to page ${pageNumber}`);
+      });
+      return button;
+    }
+    var countButton = 2;
+
+    const paginationEl = document.getElementById(elementId);
+    const pagination = {
+      totalPage,
+      currentPage,
+      limit,
+      recordsTotal,
+    };
+
+    const paginationContainer = document.createElement("div");
+    paginationContainer.className = "post-pagination";
+
+    let startPage = Math.max(currentPage - countButton, 1);
+    let endPage = Math.min(currentPage + countButton, totalPage);
+
+    if (endPage - startPage < 1) {
+      if (startPage === 1) {
+        endPage = Math.min(startPage + countButton, totalPage);
+      } else {
+        startPage = Math.max(endPage - countButton, 1);
+      }
+    }
+
+    if (currentPage > 1) {
+      const previousPageBtn = createPaginationButton("<<", currentPage - 1);
+      paginationContainer.appendChild(previousPageBtn);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      const pageBtn = createPaginationButton(i, i);
+      if (currentPage === i) {
+        pageBtn.className = "active";
+      }
+      paginationContainer.appendChild(pageBtn);
+    }
+
+    if (currentPage < totalPage) {
+      const nextPageBtn = createPaginationButton(">>", currentPage + 1);
+      paginationContainer.appendChild(nextPageBtn);
+    }
+
+    const recordsInfo = document.createElement("span");
+    recordsInfo.innerHTML = `Menampilkan ${
+      (currentPage - 1) * limit + 1
+    }-${Math.min(
+      currentPage * limit,
+      recordsTotal
+    )} dari ${recordsTotal} berita`;
+
+    recordsInfo.style.fontSize = "14px";
+    recordsInfo.style.fontFamily = "Poppins";
+    recordsInfo.style.color = "#333";
+    recordsInfo.style.fontWeight = 500;
+
+    paginationEl.innerHTML = "";
+    paginationEl.appendChild(paginationContainer);
+    paginationEl.appendChild(recordsInfo);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    getNews(1);
+  });
+</script>

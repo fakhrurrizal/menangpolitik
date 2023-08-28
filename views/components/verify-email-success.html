@@ -1,0 +1,42 @@
+<style>
+  .modal-content {
+    text-align: center;
+  }
+  .success-icon {
+    color: green;
+  }
+  .custom-button {
+      background-color: #9333ea;
+      border-color: #9333ea;
+    }
+
+    .custom-button:hover {
+      background-color: #7a27c2;
+      border-color: #7a27c2;
+    }
+    .custom-button:active {
+      background-color: #7a27c2;
+      border-color: #7a27c2;
+    }
+</style>
+
+<div
+  class="modal fade"
+  id="modalVerifySuccess"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <div>
+        <span><i class="fas fa-check-circle fa-2x success-icon mb-1"></i></span>
+        <h4>Selamat!</h4>
+        <p>Email Anda telah berhasil diverifikasi.</p>
+        <button type="button" class="btn btn-primary custom-button mt-2" data-dismiss="modal">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

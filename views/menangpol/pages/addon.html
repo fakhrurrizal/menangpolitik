@@ -1,0 +1,204 @@
+<div class="bg-purple mt-100" style="background-color: #f3e8ff; min-height: 100vh">
+  <div class="container">
+    <div class="pt-5">
+      <h2 style="font-style: normal; font-weight: 600; font-size: 36px; line-height: 42px">Konfirmasi Order</h2>
+    </div>
+    <div class="row">
+      <div class="col-md-7">
+        <div class="mb-5" id="listBarang"></div>
+        <hr style="border: none; border-top: 2px solid #cfabf7" />
+        <div class="mt-4">
+          <p class="font-weight-bold" style="font-size: 24px">Add - on</p>
+          <div id="listAddon"></div>
+        </div>
+        <hr style="border: none; border-top: 2px solid #cfabf7" />
+        <div class="form-check d-flex mt-4">
+          <input class="form-check-input" type="checkbox" value="" id="selectAll" />
+          <label class="form-check-label" for="selectAll">Pilih Semua</label>
+        </div>
+        <div class="mt-4">
+          <p style="font-style: normal; font-weight: 400; font-size: 16px; color: #555555">
+            *Dengan mencentang kamu akan bisa include semua add-on, tapi kamu juga bisa pilih manual dengan tidak mencentang kolom “Pilih
+            Semua”
+          </p>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card mt-4 mb-5 shadow rounded-md" style="background: rgba(235, 235, 235, 0.5)">
+          <div class="card-header p-0" style="background: #fbf8fd; border-radius: 12px 12px 0 0">
+            <h5 class="text-center">Order Summary</h5>
+          </div>
+          <div class="card-body">
+            <div id="listSummary"></div>
+            <hr class="m-0 mb-2" style="border: 1px solid #cfabf7" />
+            <div>
+              <h6 class="font-weight-bold">Addon</h6>
+              <div id="listSummaryAddon"></div>
+            </div>
+            <hr style="border: none; border-top: 2px solid #cfabf7" />
+            <div class="d-flex justify-content-between font-weight-bold">
+              <p>Subtotal</p>
+              <p>Rp <span id="total"></span></p>
+            </div>
+            <div class="d-flex justify-content-end">
+              <p style="font-size: 12px">Total diatas sudah termasuk PPN 11%</p>
+            </div>
+            <div class="mt-2 mb-5">
+              <a class="bg-purple btn text-white btn-block font-weight-bold" href="/payment">Lanjutkan ke Payment</a>
+              <button  class="mt-3 btn btn-block font-weight-bold" onclick="backToHome()" >
+                Kembali ke Landing Page
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+function backToHome() {
+    window.location.href = "/"; 
+  }
+  var addonProduct = [];
+  var selectedValues = [];
+
+  document.addEventListener("DOMContentLoaded", function () {
+    getAddonProduct();
+    renderItem();
+    $("#selectAll").on("change", function () {
+      selectedValues = [];
+      $(".form-check-addon:not(:disabled)").prop("checked", $(this).prop("checked"));
+      $(".form-check-addon:checked").each(function () {
+        if (!selectedValues.includes($(this).val())) {
+          selectedValues.push($(this).val());
+        }
+      });
+      addonTocart();
+    });
+  });
+
+  function listenCheckbox() {
+    $(".form-check-addon").on("change", function () {
+      selectedValues = [];
+      $(".form-check-addon:checked").each(function () {
+        if (!selectedValues.includes($(this).val())) {
+          selectedValues.push($(this).val());
+        }
+      });
+      addonTocart();
+    });
+  }
+
+  function clearAddon() {
+    $.each(addonProduct, function (i, add) {
+      cartLS.remove(add.id);
+    });
+  }
+
+  function addonTocart() {
+    clearAddon();
+    $.each(selectedValues, function (index, sel) {
+      $.each(addonProduct, function (i, add) {
+        if (add.id === parseInt(sel)) {
+          item = addonProduct[i];
+          cartLS.add({ id: item.id, name: item.product_name, price: item.discount_price, produk: "addon" });
+        }
+      });
+    });
+    renderItem();
+  }
+
+  function getAddonProduct() {
+    var url = API_URL + `/v1/product?type=a`;
+    var addon = "";
+    $.get(url, function (res) {
+      if (res.status == 200) {
+        $.each(res.data, function (index, obj) {
+          addonProduct.push(obj);
+          var disabled = "";
+          if (obj.status == "0") {
+            disabled = "disabled";
+          }
+          addon += `
+            <div class="form-addon form-check d-flex justify-content-between mt-3">
+              <div>
+                <input class="form-check-addon" type="checkbox" value="${obj.id}" id="addon${obj.id}" ${disabled}/>
+                <label class="form-check-label" for="addon${obj.id}">${obj.product_name}</label>
+              </div>
+              <div>Rp ${Numbering(obj.discount_price)}</div>
+            </div>
+          `;
+        });
+        $("#listAddon").html(addon);
+        listenCheckbox();
+      }
+    });
+  }
+
+  function renderItem() {
+    arr = cartLS.list();
+    var listKiri = "";
+    var listKanan = "";
+    var listKananAddon = "";
+    $.each(arr, function (i, product) {
+      if (product.produk == "utama") {
+        listKiri += `
+        <div class="image-fluid card bg-purple p-3 mb-5" style="top: 2rem">
+          <div>
+            <p
+              style="color: white; font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 600; font-size: 16px; line-height: 150%"
+            >
+              ${product.region}
+            </p>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: flex-end">
+              <p style="max-width: 400px;font-weight: 600; font-size: 64px; line-height: 81px; color: white">${product.pileg}</p>
+              <p style="font-family: 'Plus Jakarta Sans'; font-style: normal; font-weight: 600; font-size: 16px; line-height: 150%">
+                Rp ${Numbering(product.price * product.quantity)}
+              </p>
+            </div>
+            <div style="text-align: right; margin-top: 2rem">
+              <a class="text-white"
+                href="/pricing"
+                style="text-align: right; font-style: normal; font-weight: 600; font-size: 16px; line-height: 23px;"
+                onclick="clearCart()"
+                >Ganti Product</a
+              >
+            </div>
+          </div>
+        </div>
+      `;
+        listKanan += `
+        <div class="mt-4">
+          <p class="text-purple mb-0 font-weight-bold">${product.region} - Pileg</p>
+          <p class="font-weight-bold">${product.pileg}</p>
+          <div class="d-flex justify-content-between mt-3">
+            <p>Harga</p>
+            <p>Rp ${Numbering(product.price * product.quantity)}</p>
+          </div>
+        </div>
+
+      `;
+      }
+
+      if (product.produk == "addon") {
+        listKananAddon += `
+        <div class="d-flex justify-content-between">
+            <p>${product.name}</p>
+            <p>Rp ${Numbering(product.price * product.quantity)}</p>
+          </div>
+      `;
+      }
+    });
+    $("#listBarang").html(listKiri);
+    $("#listSummary").html(listKanan);
+    $("#listSummaryAddon").html(listKananAddon);
+    var subtotal = cartLS.total();
+    $("#total").html(Numbering(subtotal));
+  }
+
+  function clearCart() {
+    cartLS.destroy();
+    location.href = "/pricing";
+  }
+</script>

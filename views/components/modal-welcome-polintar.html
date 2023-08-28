@@ -1,0 +1,99 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-3 rounded-md" style="border: 2px solid #a855f7">
+      <div class="d-flex justify-content-between">
+        <img style="margin-top: 5px" src="{{.layoutData.FrontEndUrl}}/assets/images/polintar/logo.png" height="40px" alt="{{.Title}}" />
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="row px-4 mt-5 mb-3">
+        <div class="col-md-7">
+          <span style="font-weight: 400; font-family: 'Poppins'; font-size: 34px; color: #a855f7"
+            >Pintar Berpolitik dengan <strong style="color: #7e22ce; font-weight: 700">Politik Pintar</strong></span
+          >
+          <div class="mt-4">
+            <strong style="color: #db3a2e; font-weight: 600; font-family: 'Poppins'; font-size: 28px">Mulai dari 22 Juni 2023!!!</strong>
+          </div>
+          <div class="mt-4">
+            <span style="font-weight: 400; font-family: 'Poppins'; font-size: 26px"
+              >Mau konsultasi lebih lanjut? <strong style="color: #7e22ce">GRATISSSS!!!!</strong></span
+            >
+          </div>
+          <div class="mt-4">
+            <button class="btn rounded-lg text-white px-3 py-1" style="font-family: 'Poppins'; background-color: #7e22ce">
+              LANGSUNG KONSULTASI
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-5">
+          <img src="/assets/images/popup.png" class="img-fluid" />
+        </div>
+      </div>
+      <div class="row text-center mt-5">
+        <!-- <div class="col-md-3">
+          <button onclick="campaignPage()"  class="btn px-3 rounded-lg" style="background-color: transparent; border: 1px solid #7e22ce; color: #7e22ce">
+            Digital Kampanye
+          </button>
+        </div> -->
+        <div class="col-md-12">
+          <button class="btn rounded-lg px-5" style="background-color: #51c128; color: white">hubungi Kami</button>
+        </div>
+        <!-- <div class="col-md-3">
+          <button class="btn px-3 rounded-lg" style="background-color: transparent; border: 1px solid #7e22ce; color: #7e22ce">
+            Peta Politik Digital
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function campaignPage() {
+    window.location.href = "/campaign";
+  }
+
+  function hasTimePassed(lastTime, hours) {
+    const currentTime = new Date().getTime();
+    const timeDifference = currentTime - lastTime;
+    const hoursDifference = timeDifference / 10000;
+    return hoursDifference >= hours;
+  }
+
+  window.onload = function () {
+    $(function () {
+      var url = API_URL + "/v1/site-config/all";
+
+      $.get(url, function (res) {
+        var iconElement = document.getElementById("icon-welcome");
+
+        var icon32 = res.data.find(function (item) {
+          return item.property === "icon-web";
+          console.log(icon32);
+        });
+        if (iconElement) {
+          iconElement.src = icon32.image;
+        }
+      }).fail(function (error) {
+        console.error("Error:", error);
+      });
+    });
+
+    const modalKey = "modal-welcome";
+    const modalInterval = 1;
+
+    let lastTime = localStorage.getItem(modalKey);
+    if (!lastTime) {
+      lastTime = new Date().getTime().toString();
+      localStorage.setItem(modalKey, lastTime);
+    } else {
+      if (hasTimePassed(parseInt(lastTime), modalInterval)) {
+        $("#myModal").modal("show");
+        lastTime = new Date().getTime().toString();
+        localStorage.setItem(modalKey, lastTime);
+      }
+    }
+  };
+</script>

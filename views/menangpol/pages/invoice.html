@@ -1,0 +1,189 @@
+<div class="bg-white mt-100">
+  <div class="container">
+    <div class="row py-5" >
+      <div class="col-md-7 mx-auto">
+        <div class="mt-4 mb-5 rounded-md">
+          <div class="p-2 text-center">
+            <h5 style="font-style: normal; font-weight: 600; font-size: 32px; line-height: 42px">Selesaikan Pembayaran Dalam</h5>
+            <div id="countdown" style="text-align: center; color: #9333ea; font-weight: 600; font-size: 24px; height: 50px;"></div>
+            <div class="mt-3"><span style="color: #878787; font-weight: 600; font-size: 16px">Batas Akhir Pembayaran</span></div>
+            <div id="batas_bayar" class="mt-1 mb-4" style="font-weight: 600;
+            font-size: 24px;"></div>
+          </div>
+          <div class="card p-3" style="border: 2px solid #ebebeb; border-radius: 12px">
+            <div class="card-header d-flex justify-content-between" style="background-color: transparent">
+              <div style="font-weight: 600; font-size: 18px; line-height: 23px" id="payment_method">Transfer Bank</div>
+              <div id="pilihanPayment"></div>
+            </div>
+
+            <div class="card-body mt-3">
+              <h6 class="font-weight-bold">Nomor Vitual Account</h6>
+              <div class="d-flex justify-content-between mt-1">
+                <div id="kodeBayar" style="font-weight: 600; font-size: 18px; line-height: 23px"></div>
+                <button class="btn " style="font-size: 12px;color:#9A9590; background-color: transparent;font-weight: 600;
+                font-size: 16px;" id="copyButton" onclick="copyCode()">Salin <img src="/assets/images/copy.svg" alt="" class="ml-2"></i></button>
+              </div>
+              <div id="namaBayar"></div>
+            </div>
+
+            <div class="card-footer bg-transparent">
+                <div>
+                  <span style="font-weight: 400;
+                  font-size: 14px;color:#555555;">Total Pembayaran</span>
+                </div>
+                <div> <span id="total_payment" style="color: #121212; font-weight: 700;
+                  font-size: 18px"></span></div>
+            </div>
+          </div>
+          <div class="justify-content-between d-flex mt-5" >
+              <button class="btn bg-transparent" style="color: #9A9590; border: 1px solid #9A9590;border-radius: 12px;width: 260px;
+              height: 34px;" onclick={goToDashboardPage()}>Ke Dashboard dulu</button>
+              <!-- <button class="btn btn-purple text-white" style="width: 260px;
+              height: 37px;border-radius: 12px" data-target="#myModal" onclick="showModal()">Konfirmasi</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{template "components/modal-confirm" .}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script>
+let invoice = "{{.Invoice_id}}";
+
+function showModal() {
+    $('#myModal').modal('show');
+  }
+
+function goToDashboardPage() {
+    window.location.href = "/app/dashboard-politik";
+  }
+
+  function formatRupiah(price) {
+  var formatter = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  });
+
+  return formatter.format(price);
+}
+
+function formatCountdown(days, hours, minutes, seconds) {
+    function addLeadingZero(value) {
+      if (value < 10) {
+        return "0" + value;
+      }
+      return value;
+    }
+
+    return (
+     
+      addLeadingZero(hours) +
+      " : " +
+      addLeadingZero(minutes) +
+      " : " +
+      addLeadingZero(seconds)
+    );
+  }
+
+  function startCountdown(expirationDate) {
+    var countdownElement = document.getElementById("countdown");
+
+    var countdownInterval = setInterval(function() {
+      var now = new Date().getTime();
+      var timeRemaining = expirationDate - now;
+
+      var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      countdownElement.innerHTML = formatCountdown(days, hours, minutes, seconds);
+
+      if (timeRemaining < 0) {
+        clearInterval(countdownInterval);
+        countdownElement.innerHTML = "Waktu sudah habis.";
+      }
+    }, 1000);
+  }
+
+  function formatTime(time) {
+    var options = {
+      hour: '2-digit',
+      minute: '2-digit',
+     
+    };
+    return time.toLocaleTimeString('id-ID', options);
+  }
+
+  function formatDate(date) {
+    var options = {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    };
+    return date.toLocaleDateString('id-ID', options);
+  }
+
+  var counter = 0;
+  function getInvoice() {
+    counter++
+    console.log(counter)
+    var u = cekLogedIn();
+    var url = API_URL + `/v1/transactions/invoice/` + invoice;
+    $.get(url, function (res) {
+        console.log(res);
+        if(res.data.lunas){
+          location.href="/transaction?status=lunas"
+          return
+        }
+        $("#kodeBayar").html(res.data.payment.payment.payment_code);
+        $("#total_payment").html(formatRupiah(res.data.payment.sub_total));
+        var expirationDate = new Date(res.data.order.expiration_date);
+        var formattedDate = formatDate(expirationDate);
+        var formattedTime = formatTime(expirationDate);
+        $("#batas_bayar").html(formattedDate + "  " + formattedTime);
+        startCountdown(expirationDate.getTime());
+    });
+
+    var user = u.state.value.user;
+    var userHtm = `<span">a.n ${user.fullname}</span>`;
+    $("#namaBayar").html(userHtm);
+  }
+
+  function copyCode() {
+    var kodeBayar = document.getElementById("kodeBayar").innerText;
+    var tempInput = document.createElement("input");
+    tempInput.setAttribute("value", kodeBayar);
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    var copyButton = document.getElementById("copyButton");
+    copyButton.innerText = "Disalin  ✓";
+    copyButton.classList.add("copied");
+    copyButton.style.color = "#A855F7";
+    copyButton.style.backgroundColor = "#D8B4FE";
+    copyButton.style.position = "absoulte"
+  }
+
+  function showPilihan() {
+    var obj = GetLocalStorage("selected_payment");
+    if (obj !== undefined) {
+      $("#pilihanPayment").html(`<img src="${obj.image_icon}" class="img-fluid" style="width: 100px;
+height: 25px;"/>`);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    getInvoice();
+    showPilihan();
+    setInterval(getInvoice, 5000);
+  });
+
+  
+</script>

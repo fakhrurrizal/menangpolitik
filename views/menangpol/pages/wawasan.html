@@ -1,0 +1,528 @@
+<style>
+  .title-news:hover {
+    color: var(--thm-base);
+  }
+
+  .text-truncate-1 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .text-truncate-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .text-truncate-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      70.71% 70.71% at 50% 50%,
+      rgba(0, 23, 28, 0.5) 0%,
+      rgba(0, 11, 14, 0.7) 46.15%,
+      rgba(0, 11, 14, 0.82) 100%
+    );
+  }
+
+  .carousel-item img {
+    height: 50%;
+    object-fit: cover;
+  }
+
+  .carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .list__berita {
+    color: var(--thm-base);
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 28px;
+  }
+
+  .list__berita_news {
+    color: var(--thm-base);
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+    font-size: 14px !important;
+  }
+
+  .category__news {
+    color: #616161;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: capitalize;
+  }
+
+  .category__news_list {
+    color: #616161;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: capitalize;
+    margin-top: -15px;
+  }
+
+  .lihat__selengkapnya {
+    color: var(--thm-base);
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 600;
+    margin-top: 20px;
+    line-height: 22px;
+    font-size: 14px !important;
+  }
+
+  .topik__terkini {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22.75px;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+
+  .title__hero {
+    position: absolute;
+    background-color: black;
+    padding: 24px 32px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    bottom: 10;
+  }
+
+  #latestTitle {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+  }
+
+  #latestTitle:hover {
+    color: #dcdbdb;
+  }
+
+  .publish {
+    color: #fff;
+    font-family: Poppins;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    margin-top: 5px;
+  }
+
+  .tags__category{
+    font-weight: 600;
+    font-size: 12px;
+    font-family: Poppins;
+    line-height: 10px;
+    text-transform: uppercase;
+  }
+
+  .tags__list {
+    font-weight: 600;
+    font-size: 13px;
+    font-family: Poppins;
+    line-height: 10px;
+    text-transform: uppercase;
+  }
+
+  .card__category {
+    cursor: pointer;
+    border-radius: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: Poppins;
+  }
+
+  .card__category:hover {
+    color: white;
+    background-color: var(--thm-base);
+  }
+</style>
+
+<div>
+  <div class="mt-100 py-2" style="color: #121212;" id="news-container">
+    <div class="container mt-2">
+      <div style="display: flex;" id="card__category"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5 mt-5" style="color: #121212;">
+  <div class="row" id="listNews">
+    <div class="col-md-7">
+      <div style="position: relative;">
+        <img
+          id="latestImage"
+          src=""
+          alt=""
+          style="
+            width: 97%;
+            height: 100%;
+            border-radius: 5px;
+            position: relative;
+          "
+        />
+        <div
+          class="title__hero"
+          style="
+            position: absolute;
+            bottom: 0px;
+            width: 97%;
+            color: white;
+            font-family: Poppins;
+          "
+        >
+          <span class="topik__terkini"></span>
+          <div>
+            <a id="latestTitle" class="text-truncate-1"></a>
+          </div>
+          <div class="publish mt-4">
+            <img
+              src="{{.layoutData.FrontEndUrl}}/assets/images/calender.svg"
+              alt="calender"
+              style="width: 18px; height: 18px; margin-top: -3px;"
+            />
+            <span id="publish_news" class="mx-2"></span> |
+            <img
+              src="{{.layoutData.FrontEndUrl}}/assets/images/pen.png"
+              alt="calender"
+              style="width: 18px; height: 18px;"
+              class="mx-2"
+            /><span id="author_news"></span>
+          </div>
+        </div>
+      </div>
+
+      <div id="list">
+        <div class="d-flex w-100 justify-content-center">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+      <hr class="mt-5" />
+      <div id="pagination" class="text-center"></div>
+      <div class="row"></div>
+    </div>
+    <div class="col-md-5">
+      <div>
+        <span style="font-family: Poppins; font-weight: 600;"
+          >Topik Terpopuler</span
+        >
+        <hr
+          style="
+            height: 3px;
+            border: 0;
+            background: linear-gradient(to right, var(--color-company) 50%, #7c7d8a 50%);
+          "
+        />
+        <div id="tag_news"></div>
+      </div>
+      <div id="news_category"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    getTags();
+    getNews(1);
+  });
+
+  function calculateTimeDifference(publishAt) {
+    const currentTime = new Date();
+    const publishTime = new Date(publishAt);
+    const timeDifference = currentTime - publishTime;
+
+    const secondsDifference = Math.floor(timeDifference / 1000);
+    const minutesDifference = Math.floor(secondsDifference / 60);
+    const hoursDifference = Math.floor(minutesDifference / 60);
+    const daysDifference = Math.floor(hoursDifference / 24);
+
+    if (daysDifference > 0) {
+      return `${daysDifference} hari yang lalu`;
+    } else if (hoursDifference > 0) {
+      return `${hoursDifference} jam yang lalu`;
+    } else if (minutesDifference > 0) {
+      return `${minutesDifference} menit yang lalu`;
+    } else {
+      return `${secondsDifference} detik yang lalu`;
+    }
+  }
+
+  var datas = null;
+
+  function getTags() {
+    var urlTags =
+      API_URL +
+      `/v1/landing-page/news/popular-tags?desired_number_of_tags=5&order_by=total_shares`;
+
+    $.get(urlTags, function (res) {
+      var tagsList = "";
+
+      $.each(res.data, function (index, item) {
+        console.log("item", item);
+
+        tagsList += `
+        <div line-height: 20px;>
+          <div style="line-height: 10px;">
+            #<a href="/news-tags/${item.label}" class="tags__list ml-2">
+            <span>${item.label}</span>
+          </a>
+          <hr />
+          </div>
+        </div>
+        `;
+      });
+      $("#tag_news").html(tagsList);
+    });
+  }
+
+  function getNews(page = 1) {
+    var url =
+      API_URL + `/v1/landing-page/news?limit=5&order=id&sort=DESC&page=` + page;
+
+    $.get(url, function (res) {
+      var card = "";
+      var list = "";
+      //create latest news
+      var latestData = null;
+      if (page == 1 && res.data.length >= 1) {
+        latestData = res.data[0];
+        const timePublish = calculateTimeDifference(latestData.publish_at);
+        const latestPublishElement = document.getElementById("publish_news");
+        const latestAuthorElement = document.getElementById("author_news");
+        latestPublishElement.innerText = timePublish;
+        latestAuthorElement.innerText = latestData.author;
+        const latestImageElement = document.getElementById("latestImage");
+        const latestTitleElement = document.getElementById("latestTitle");
+        latestTitleElement.href = `/news/${latestData.category.name}/${latestData.slug}`;
+        latestTitleElement.innerText = latestData.title;
+        latestImageElement.src = latestData.image;
+        latestImageElement.alt = latestData.title;
+      }
+
+      if (page === 1) {
+        res.data.splice(0, 1);
+      }
+      $.each(res.data, function (index, item) {
+        const timeDifference = calculateTimeDifference(item.publish_at);
+
+        list += `
+            <div class="d-flex mt-4" style="align-items: center;">
+              <a href="/news/${item.category.name}/${
+          item.slug
+        }" style="display: inline-block; vertical-align: top;">
+                <img src="${item.image}" alt="${
+          item.title
+        }" width="170px" height="115px" style="float: left; margin-right: 10px; border-radius: 5px;">
+  
+              </a>
+              <div style="display: inline-block; vertical-align: top;" class="ml-4">
+                <h4 class="list__berita" style="font-size: 17px; font-family: Poppins; margin: 0;">
+                  <a href="/news/${item.category.name}/${item.slug}">${
+          item.title
+        }</a>
+                </h4>
+                <p style="font-size: 14px; font-family: Poppins; margin: 0;line-height:20px; font-weight:500"><a href="/news/${
+                  item.category.name
+                }/${item.slug}">${item.description.slice(0, 120)}... </a></p>
+                <span class="category__news "> ${
+                  item.category.name
+                } | ${timeDifference}</span>
+              </div>
+            </div>
+          `;
+      });
+      $("#list").html(list);
+      createPagination(
+        "pagination",
+        res.total_page,
+        page,
+        res.limit,
+        res.recordsTotal
+      );
+      datas = res;
+      getCategory(20);
+    });
+  }
+
+  function getCategory(limit = 10) {
+    var categoryHTML = "";
+    var url = API_URL + `/v1/landing-page/news/category?limit=` + limit;
+    $.get(url, function (res) {
+      var list_category = "";
+      $.each(res.data, function (index, categoryItem) {
+        list_category += `
+          <a style="text-decoration:none" href="/news-category/${categoryItem.id}"> <div  class=" px-3 card__category ">${categoryItem.name}</div></a>
+          `;
+
+        // build cat news
+        var filteredNews = datas.data.filter(
+          (newsItem) => newsItem.category.id === categoryItem.id
+        );
+
+        if (filteredNews.length > 0) {
+          var newsHTML = "";
+          var numDisplayedNews = 0;
+
+          for (
+            var i = 0;
+            i < filteredNews.length && numDisplayedNews < 5;
+            i++
+          ) {
+            var newsItem = filteredNews[i];
+            newsHTML += `
+              <div class="d-flex mt-3" style="align-items: center;">
+                <a href="/news/${newsItem.category.name}/${newsItem.slug}" style="display: inline-block; vertical-align: top;">
+                  <img src="${newsItem.image}" alt="${newsItem.title}" width="80px" height="60px" style="float: left; margin-right: 10px; border-radius: 5px;" />
+                </a>
+                <div style="display: inline-block; vertical-align: top;" class="ml-4">
+                  <h4 class="list__berita_news" style="font-size: 11px; font-family: Poppins; margin: 0;">
+                    <a href="/news/${newsItem.category.name}/${newsItem.slug}">${newsItem.title}</a>
+                  </h4>
+  
+                  <span class="category__news_list">${newsItem.category.name}</span>
+                </div>
+              </div>`;
+            numDisplayedNews++;
+          }
+
+          if (filteredNews.length > 5) {
+            newsHTML += `<div class="lihat__selengkapnya">
+              <a href="/news-category/${categoryItem.id}">Lihat Selengkapnya ...</a>
+              </div>
+              `;
+          }
+
+          categoryHTML += `
+            <div class="mt-5">
+              <span style="font-family: Poppins; font-weight: 600;">Kategori ${categoryItem.name}</span>
+              <hr style="height: 3px; border: 0; background: linear-gradient(to right, var(--color-company) 50%, #7c7d8a 50%);">
+              ${newsHTML}
+            </div>`;
+        }
+      });
+      //render it
+      $("#card__category").html(list_category);
+      $("#news_category").html(categoryHTML);
+    });
+  }
+
+  function createPagination(
+    elementId,
+    totalPage,
+    currentPage,
+    limit,
+    recordsTotal
+  ) {
+    function createPaginationButton(label, pageNumber) {
+      const button = document.createElement("a");
+      button.innerHTML = label;
+      button.addEventListener("click", () => {
+        getNews(pageNumber);
+      });
+      return button;
+    }
+    var countButton = 2;
+
+    const paginationEl = document.getElementById(elementId);
+    const pagination = {
+      totalPage,
+      currentPage,
+      limit,
+      recordsTotal,
+    };
+
+    const paginationContainer = document.createElement("div");
+    paginationContainer.className = "post-pagination";
+
+    let startPage = Math.max(currentPage - countButton, 1);
+    let endPage = Math.min(currentPage + countButton, totalPage);
+
+    if (endPage - startPage < 1) {
+      if (startPage === 1) {
+        endPage = Math.min(startPage + countButton, totalPage);
+      } else {
+        startPage = Math.max(endPage - countButton, 1);
+      }
+    }
+
+    if (currentPage > 1) {
+      const previousPageBtn = createPaginationButton("<<", currentPage - 1);
+      paginationContainer.appendChild(previousPageBtn);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      const pageBtn = createPaginationButton(i, i);
+      if (currentPage === i) {
+        pageBtn.className = "active";
+      }
+      paginationContainer.appendChild(pageBtn);
+    }
+
+    if (currentPage < totalPage) {
+      const nextPageBtn = createPaginationButton(">>", currentPage + 1);
+      paginationContainer.appendChild(nextPageBtn);
+    }
+
+    const recordsInfo = document.createElement("span");
+    recordsInfo.innerHTML = `Menampilkan ${
+      (currentPage - 1) * limit + 1
+    }-${Math.min(
+      currentPage * limit,
+      recordsTotal
+    )} dari ${recordsTotal} berita`;
+
+    recordsInfo.style.fontSize = "14px";
+    recordsInfo.style.fontFamily = "Poppins";
+    recordsInfo.style.color = "#333";
+    recordsInfo.style.fontWeight = 500;
+
+    paginationEl.innerHTML = "";
+    paginationEl.appendChild(paginationContainer);
+    paginationEl.appendChild(recordsInfo);
+  }
+</script>

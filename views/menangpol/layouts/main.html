@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="canonical" href="{{.SiteUrlPage}}" />
+    <meta
+      property="article:published_time"
+      content="2022-05-08T22:53:57+00:00"
+    />
+    <meta
+      property="article:modified_time"
+      content="2022-09-19T04:10:18+00:00"
+    />
+
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:title" content="{{.Title}}" />
+    <meta property="og:description" content="{{.Description}}" />
+    <meta property="og:url" content="{{.SiteUrlPage}}" />
+    <meta property="og:site_name" content="{{.SiteName}}" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="/assets/images/menangpol/logo.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="/assets/images/menangpol/logo.png"
+    />
+    <meta name="theme-color" content="{{.Color}}" />
+
+    <meta name="author" content="" />
+    <title content="{{.Title}}">{{.Title}}</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/assets/images/menangpol/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="  /assets/images/menangpol/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/assets/images/favicons/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- plugin scripts -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/assets/css/animate.min.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/fontawesome-all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/bootstrap-datepicker.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/bootstrap-select.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/jquery.mCustomScrollbar.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/owl.theme.default.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/assets/css/zimed-icon.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/jquery.bxslider.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/assets/css/magnific-popup.css"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="/assets/css/style-menangpol.css" />
+    <link rel="stylesheet" href="/assets/css/menangpol.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <script>
+      const API_URL = "{{.layoutData.ApiUrl}}";
+      const AppId = "{{.layoutData.AppId}}";
+      const CompanyId = "{{.layoutData.Company}}";
+    </script>
+    <script
+      src="https://unpkg.com/cart-localstorage@1.1.4/dist/cart-localstorage.min.js"
+      type="text/javascript"
+    ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="/assets/js/jquery-3.7.0.min.js"></script>
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css" />
+
+    <style>
+      body {
+        color: #060606;
+        font-family: Poppins;
+        background-color: #f8f8f8;
+        ::-webkit-scrollbar {
+          width: 0.5em;
+          background-color: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background-color: transparent;
+        }
+
+      }
+
+      a {
+  text-decoration: none;
+  font-size: inherit;
+  color: inherit;
+}
+
+      .bg-company{
+        background-color: var(--color-company);
+      }
+
+      .custom-button-login {
+        background-color: white;
+        color: #000000;
+        border: 1px solid white;
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 1px 25px;
+        font-size: 17px;
+      }
+      
+      .custom-button-login:hover {
+        background-color: #000000;
+        border: 1px solid white;
+        color: white;
+        font-size: 17px;
+      }
+
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .btn-demo {
+        background-color: #000000;
+        border: 1px solid #000000;
+        color: #ffffff;
+        cursor: pointer;
+      }
+      .btn-demo:hover {
+        background-color: transparent;
+        border: 1px solid #000000;
+        color: #000000;
+      }
+
+      .btn-start {
+        background-color: transparent;
+        border: 1px solid #000000;
+        color: #000000;
+        cursor: pointer;
+      }
+      .btn-start:hover {
+        background-color: #000000;
+        border: 1px solid #000000;
+        color: #ffffff;
+        
+      }
+      .btn-started {
+        background-color: transparent;
+        border: 1px solid #000000;
+        color: #000000;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+      .btn-started:hover {
+        background-color: #000000;
+        border: 1px solid #000000;
+        color: #ffffff;
+      }
+      h2 {
+        font-weight: 700;
+      }
+
+      .title-underline {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 10px;
+        transition: 0.3s;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .title-underline::after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: #000;
+        transition: 0.3s;
+      }
+
+      .title-underline:hover::after {
+        transform: translateX(-50%) scaleX(1);
+        width: 100%;
+      }
+
+      .card-feature {
+        width: 265px;
+        height: 250px;
+        border-radius: 8px;
+        justify-content: center;
+        cursor: pointer;
+        text-align: center;
+        background-color: transparent;
+        position: relative;
+        overflow: hidden;
+      }
+      .card-feature:hover {
+        transform: translateY(-0px);
+      }
+
+      .card-feature .content {
+        position: absolute;
+        bottom: -100%;
+        left: 0;
+        width: 100%;
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        transition: bottom 0.5s;
+      }
+
+      .card-feature:hover .content {
+        bottom: 0;
+      }
+
+      .card-feature:hover .title-icon {
+        display: none;
+      }
+      .image-sliders {
+        overflow: hidden;
+        position: relative;
+      }
+
+
+      .dropdown-menu{
+        margin-right: 180px;
+        min-width: 250px;
+      }
+ 
+      @media (max-width: 768px) {
+        .carousel {
+          margin-top: 20px;
+        }
+
+        .custom-button-login{
+          margin-top: 30px;
+        }
+
+        .card-login{
+          background-color: transparent;
+        }
+
+        #imageCarousel {
+          display: none;
+        }
+        .title-icon {
+          margin-top: -150px;
+        }
+
+        .card-feature .content {
+          background-color: transparent;
+          color: black;
+          top: 200px;
+          width: 100%;
+          height: auto;
+          padding: 10px;
+          transition: none;
+        }
+        .card-feature:hover .title-icon {
+          display: block;
+        }
+        .card-feature {
+          width: 100%;
+          min-height: 408px;
+          border-radius: 8px;
+          justify-content: center;
+          cursor: pointer;
+          text-align: center;
+          background-color: transparent;
+        }
+      }
+      
+    </style>
+  </head>
+
+  <body>
+    <div class="preloader">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <header >
+      <nav
+      class="navbar navbar-expand-md"
+      style="background-color: #000000; color: #ffffff;"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="/"
+          ><img
+            src="/assets/images/menangpol/logo-landing.png"
+            height="50"
+            alt="logo"
+        /></a>
+        <div style="color: white;">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            style="color: white;"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse main-navbar__main-navigation" id="navbarNav">
+          <ul class="navbar-nav mx-auto one-page-scroll-menu main-navbar__navigation-box">
+            <li {{ if eq .CurrentRoute "/" }} class="current "{{ end }}>
+              <a href="/">Home</a>
+            </li>
+            <li {{ if eq .CurrentRoute "/wawasan" }} class="current "{{ end }}>
+              <a href="/wawasan">Info Politik</a>
+            </li>
+
+            <li {{ if eq .CurrentRoute "/kecerdasan" }} class="current "{{ end }}>
+              <a href="/kecerdasan">Produk</a>
+            </li>
+
+            <li {{ if eq .CurrentRoute "/pricing" }} class="current"{{ end }}>
+              <a href="/pricing">Harga</a>
+            </li>
+
+          </ul>
+          <div class="custom-button-login d-none btnSignUp main-nav__right">
+
+            <a  href="/login"
+              >Login</a
+            >
+          </div>
+          <div class="custom-button-login d-none btnSignIn main-nav__right">
+            <a
+              class="  btnDropUser"
+              type="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+             
+             
+            ></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="/app/dashboard-politik">Dashboard</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" onclick="setLogout()">Log Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    </header>
+    {{embed}}
+    <footer class="site-footer">
+      <div class="site-footer__upper">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="footer-widget footer-widget__about">
+                <a class="footer-widget__logo" href="/"
+                  ><img
+                    src="/assets/images/menangpol/logo-landing.png"
+                    height="50"
+                    alt="logo"
+                /></a>
+                <p style="color: white; line-height: 25px; font-size: 16px;">
+                  Platform ini menyediakan berbagai fitur dan sumber daya yang
+                  membantu calon legislative dalam merencanakan kampanye,
+                  membangun strategi, dan mendekatkan dengan calon pemilih.
+                </p>
+
+                <div
+                  style="
+                    display: flex;
+                    color: #ffffff;
+                    font-family: Poppins;
+                    font-size: 15px;
+                    margin-top: 30px;
+                  "
+                >
+                  <img
+                    src="/assets/images/email.svg"
+                    style="color: white;"
+                    alt="{{.layoutData.CompanyEmail}}"
+                    width="22"
+                  /><span class="mx-2">{{.layoutData.CompanyEmail}}</span><br />
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    margin-top: 5px;
+                    color: #ffffff;
+                    font-family: Poppins;
+                    font-size: 15px;
+                  "
+                >
+                  <img
+                    src="/assets/images/phone.svg"
+                    style="color: white;"
+                    alt="{{.layoutData.CompanyPhone}}"
+                    width="20"
+                  /><span class="mx-2 mt-1">{{.layoutData.CompanyPhone}}</span
+                  ><br />
+                </div>
+              </div>
+            </div>
+           <div class="col-md-6 row">
+            <div class="col-md-6">
+              <div class="footer-widget footer-widget__links">
+                <h3 class="footer-widget__title">Informasi</h3>
+                <div class="footer-widget__links-wrap" style="width: 15rem;">
+                  <ul class="list-unstyled">
+                    <li style="display: flex; ">
+                      <a href="/privacy-policy" class="mx-1 text-white"
+                        >Kebijakan Privasi</a
+                      >
+                    </li>
+                    <li style="display: flex; color: white;">
+                      <a href="/terms-condition" class="mx-1 text-white"
+                        >Syarat & Ketentuan</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="footer-widget footer-widget__about">
+                <h3 class="footer-widget__title">Pembayaran</h3>
+                <div class="footer-widget__links-wrap">
+                  <img
+                    src="https://politikpintar.id/api/assets/uploads/46/2023-08/1691723086.png"
+                    alt="Pembayaran"
+                    width="200px"
+                  />
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="site-footer__bottom">
+        <hr style="border-color: #e8e8e8;" />
+        <div
+          class="container text-white"
+          style="text-align: center; font-family: Poppins; font-size: 15px;"
+        >
+          <p>
+            copyright©2023 by  - All Right Reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/TweenMax.min.js"></script>
+    <script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/js/jquery.easing.min.js"></script>
+    <script src="/assets/js/bootstrap-select.min.js"></script>
+    <script src="/assets/js/jquery.validate.min.js"></script>
+    <script src="/assets/js/jquery.waypoints.min.js"></script>
+    <script src="/assets/js/wow.js"></script>
+    <script src="/assets/js/jquery.counterup.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/jquery.bxslider.min.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/common.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.9/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('select.nice-select').niceSelect();
+  });
+</script>
+    <script>
+      AOS.init();
+      $(function () {
+        getFooter();
+        setReferalCode();
+        var currentPath = window.location.pathname;
+        if (currentPath != "/") {
+          $("#header-nav").css("background", "var(--thm-black)");
+        }
+        var u = cekLogedIn();
+        if (u.state === undefined || u.state.value.user === undefined) {
+          setLogout();
+        }
+        if (u.state.value.user !== undefined) {
+          cekMe(u);
+          setLogin();
+        }
+      });
+
+      function openNewWindow() {
+        var link = API_URL + "/v1/site-config/all";
+        $.get(link, function (res) {
+          var email = res.data.find(function (item) {
+            return item.property === "email";
+          });
+
+          var url = `https://mail.google.com/mail/?view=cm&fs=1&to=${email.content}&su=Konsultasi%20Online&body=Silahkan%20tulis%20keluhan%20anda`;
+          var windowWidth = 800;
+          var windowHeight = 600;
+          var windowFeatures =
+            "width=" +
+            windowWidth +
+            ",height=" +
+            windowHeight +
+            ",resizable=yes,scrollbars=yes";
+
+          window.open(url, "_blank", windowFeatures);
+        });
+      }
+      function setReferalCode() {
+        const currentURL = window.location.href;
+        const urlParams = new URLSearchParams(new URL(currentURL).search);
+        const refCode = urlParams.get("ref");
+        if (refCode != "") {
+          SaveLocalStorage("referal_code", refCode);
+        }
+      }
+
+      function getFooter() {
+        var url = API_URL + `/v1/landing-page/footer/all`;
+        $.get(url, function (res) {
+          var footer = "";
+          $.each(res.data, function (index, item) {
+            var menuItems = "";
+            $.each(item.children, function (childIndex, childItem) {
+              const image = childItem.image
+                ? `<img src="${childItem.image}" alt="${childItem.title}" width="18px" height="100%"/>`
+                : "";
+              menuItems += `<li style="display:flex">${image}<a href="${childItem.link}" class="mx-1">${childItem.title}</a></li>`;
+            });
+
+            footer += `
+                <div class="col-lg-4">
+                  <div class="footer-widget footer-widget__links">
+                    <h3 class="footer-widget__title">${item.title}</h3>
+                    <div class="footer-widget__links-wrap" style="width:15rem">
+                      <ul class="list-unstyled">
+                        ${menuItems}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              `;
+          });
+
+          $("#footer").html(footer);
+        });
+      }
+
+      function setLogin() {
+        var u = cekLogedIn();
+        var user = u.state.value.user;
+        var userHtm = `<span class="mx-2">${user.fullname}</span><i class="fa fa-user"></i>`;
+        $(".btnDropUser").html(userHtm);
+        $(".btnSignIn").removeClass("d-none").addClass("d-block");
+        $(".btnSignUp").removeClass("d-block").addClass("d-none");
+        $("#langDemo").removeClass("d-flex").addClass("d-none");
+      }
+
+      const localStorageData = localStorage.getItem("telin-auth");
+
+      const parsedData = JSON.parse(localStorageData);
+
+      const accessToken = parsedData?.state.value.accessToken;
+
+      function setLogout() {
+        fetch(API_URL + "/v1/auth/signout", {
+          method: "POST",
+          headers: {
+            Authorization: accessToken,
+          },
+        });
+
+        logOut();
+        $(".btnSignUp").removeClass("d-none").addClass("d-block");
+        $(".btnSignIn").addClass("d-none").removeClass("d-block");
+      }
+
+      function cekMe(user) {
+        fetch(API_URL + "/v1/auth/me", {
+          method: "GET",
+          headers: {
+            Authorization: user.state.value.accessToken,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status != 200) {
+              setLogout();
+            }
+          })
+          .catch((error) => {});
+      }
+    </script>
+  </body>
+</html>

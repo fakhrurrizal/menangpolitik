@@ -1,0 +1,162 @@
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content p-3 rounded-md">
+      <div class="d-flex justify-content-between">
+        <span style="font-weight: 600; font-size: 24px">Upload Bukti Pembayaran</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="row p-2 mt-2" style="width: 100%">
+        <div class="px-2 py-1" style="background-color: #fbf8fd; width: 100%; border-radius: 10px">
+          <img src="/assets/images/lamp.svg" alt="" class="mx-2" style="width: 20px; height: 20px; margin-top: -4px" />
+          <span>Unggah bukti pembayaran dapat mempercepat verifikasi pembayaran</span>
+        </div>
+      </div>
+      <div class="mt-3 mb-3 px-2">
+        <span>Pastikan bukti pembayaran menampilkan:</span>
+        <div class="row">
+          <div>
+            <ul style="color: #7e22ce; padding: 3">
+              <li class="mt-3">
+                <span style="font-weight: 600; font-size: 16px; color: #121212"> Tanggal/Waktu Transfer </span>
+                <br />
+                <span style="font-weight: 400; font-size: 14px; color: #121212"> contoh: tgl. 04/05/23 / jam 07:24:06 </span>
+              </li>
+              <li class="mt-3">
+                <span style="font-weight: 600; font-size: 16px; color: #121212"> Detail Penerima </span>
+                <br />
+                <span style="font-weight: 400; font-size: 14px; color: #121212"> contoh: Transfer ke Rekening Politik Pintar </span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <ul style="color: #7e22ce; padding: 3">
+              <li class="mt-3">
+                <span style="font-weight: 600; font-size: 16px; color: #121212"> Jumlah Transfer </span>
+                <br />
+                <span style="font-weight: 400; font-size: 14px; color: #121212"> contoh: Rp 123.234,00 </span>
+              </li>
+              <li class="mt-3">
+                <span style="font-weight: 600; font-size: 16px; color: #121212"> Status Berhasil </span>
+                <br />
+                <span style="font-weight: 400; font-size: 14px; color: #121212"> contoh: Transfer BERHASIL, Transaksi Sukses </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="container">
+          <div
+            class="p-5"
+            style="
+              border-radius: 4px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-direction: column;
+              text-align: center;
+              background-color: #ebebeb;
+            "
+          >
+            <img src="/assets/images/camera.svg" id="selectImage" alt="" style="width: 40px; height: 40px; color: #555555" />
+            <div class="mt-3">
+              <span id="selectFormat" style="color: #555555">Format gambar: .JPG, .JPEG, .PNG. max 10 MB</span>
+            </div>
+            <div class="mt-3">
+              <label for="imageInput">
+                <button
+                  class="btn rounded-lg"
+                  id="selectButton"
+                  style="background-color: #a855f7; color: white; width: 257px; height: 33px"
+                >
+                  Pilih Gambar
+                </button>
+              </label>
+            </div>
+            <input type="file" id="imageInput" accept=".jpg, .jpeg, .png" style="display: none" />
+            <div class="p-3" id="previewContainer" style="display: none; border: 2px dashed #ccc">
+              <img id="previewImage" style="max-width: 200px; max-height: 200px" src="#" alt="Preview" />
+            </div>
+          </div>
+          <div
+          class="mt-3"
+            id="buttonContainer"
+            style="
+              justify-content: center;
+              text-align: center;
+              display: none;
+              "
+          >
+          <span style="font-size: 14px;">Apakah anda yakin ingin mengunggah gambar ini sebagai bukti pembayaran ?</span>
+          <div style="flex-direction: column;">
+            <button
+            class="btn my-2 mx-1"
+            id="sendButton"
+            style="border-radius: 10px; background-color: #a855f7; color: white; width: 200px; height: 40px"
+          >
+            Unggah Gambar Ini
+          </button>
+          <button
+            class="btn my-2 mx-2"
+            id="cancelButton"
+            style="
+              border-radius: 10px;
+              background-color: transparent;
+              border: 1px solid #a855f7;
+              color: #a855f7;
+              width: 200px;
+              height: 40px;
+            "
+          >
+            Batalkan
+          </button>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("selectButton").addEventListener("click", function () {
+    document.getElementById("imageInput").click();
+  });
+
+  document.getElementById("imageInput").addEventListener("change", function (event) {
+    var input = event.target;
+    var previewContainer = document.getElementById("previewContainer");
+    var previewImage = document.getElementById("previewImage");
+    var buttonContainer = document.getElementById("buttonContainer");
+
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        previewImage.setAttribute("src", e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+
+      previewContainer.style.display = "block";
+      buttonContainer.style.display = "block";
+      document.getElementById("selectButton").style.display = "none";
+      document.getElementById("selectImage").style.display = "none";
+      document.getElementById("selectFormat").style.display = "none";
+    }
+  });
+
+  document.getElementById("cancelButton").addEventListener("click", function () {
+    var input = document.getElementById("imageInput");
+    var previewContainer = document.getElementById("previewContainer");
+    var buttonContainer = document.getElementById("buttonContainer");
+
+    input.value = "";
+    previewContainer.style.display = "none";
+    buttonContainer.style.display = "none";
+    document.getElementById("selectButton").style.display = "block";
+    document.getElementById("selectImage").style.display = "block";
+    document.getElementById("selectFormat").style.display = "block";
+  });
+</script>

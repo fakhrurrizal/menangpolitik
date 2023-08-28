@@ -1,0 +1,110 @@
+<div
+  class="modal fade"
+  id="myModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myLargeModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div
+      class="modal-content p-3 rounded-md"
+      style="border: 2px solid #d44301;"
+    >
+      <div class="d-flex justify-content-between">
+        <img src="/assets/images/PKS.png" width="60px" class="img-fluid" />
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="row mt-5 mb-3">
+        <div class="col-md-6">
+          <span style="font-weight: 300; font-size: 36px; color: #ff5001;"
+            >Pintar Berpolitik dengan
+            <strong style="font-weight: 700;"
+              >Menang Bersama Rakyat</strong
+            ></span
+          >
+          <div class="mt-4">
+            <strong style="color: #db3a2e; font-weight: 600; font-size: 30px;"
+              >Mulai dari 22 Juni 2023!!!</strong
+            >
+          </div>
+          <div class="mt-4">
+            <span style="font-weight: 400; font-size: 28px;"
+              >Mau konsultasi lebih lanjut?
+              <strong style="color: #ff5001;">GRATISSSS!!!!</strong></span
+            >
+          </div>
+          <div class="mt-4">
+            <button
+              class="btn rounded-lg text-white px-3 py-1"
+              style="background-color: #ff6d2b;"
+            >
+              LANGSUNG KONSULTASI
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <img src="/assets/images/popup-pks.png" class="img-fluid" />
+        </div>
+      </div>
+      <div class="row text-center mt-5">
+        <!-- <div class="col-md-3">
+          <button onclick="campaignPage()"  class="btn px-3 rounded-lg" style="background-color: transparent; border: 1px solid #7e22ce; color: #7e22ce">
+            Digital Kampanye
+          </button>
+        </div> -->
+        <div class="col-md-12">
+          <button
+            class="btn rounded-lg px-5"
+            style="background-color: #51c128; color: white;"
+          >
+            hubungi Kami
+          </button>
+        </div>
+        <!-- <div class="col-md-3">
+          <button class="btn px-3 rounded-lg" style="background-color: transparent; border: 1px solid #7e22ce; color: #7e22ce">
+            Peta Politik Digital
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function campaignPage() {
+    window.location.href = "/campaign";
+  }
+
+  function hasTimePassed(lastTime, hours) {
+    const currentTime = new Date().getTime();
+    const timeDifference = currentTime - lastTime;
+    const hoursDifference = timeDifference / (10000);
+    return hoursDifference >= hours;
+  }
+
+  window.onload = function () {
+    const modalKey = 'modal-welcome-pks';
+    const modalInterval = 1; 
+
+    let lastTime = localStorage.getItem(modalKey);
+    if (!lastTime) {
+      lastTime = new Date().getTime().toString();
+      localStorage.setItem(modalKey, lastTime);
+    } else {
+      if (hasTimePassed(parseInt(lastTime), modalInterval)) {
+        $("#myModal").modal("show");
+        lastTime = new Date().getTime().toString();
+        localStorage.setItem(modalKey, lastTime);
+      }
+    }
+  };
+</script>

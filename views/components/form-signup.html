@@ -1,0 +1,448 @@
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="/assets/js/common.js"></script>
+<style>
+  #partai-input option {
+    background-repeat: no-repeat;
+    background-position: 3px center;
+    padding-left: 20px;
+  }
+  .text-danger {
+    color: red !important;
+  }
+  .form-check {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .form-check-label {
+    margin-left: 10px;
+  }
+</style>
+
+<form id="register" class="my-5 row">
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px" id="fullname">Nama Lengkap <span class="text-danger"> *</span></span>
+    <input
+      type="text"
+      name="fullname"
+      id="fullname-input"
+      class="form-control"
+      placeholder="Nama Lengkap"
+      aria-label="username"
+      aria-describedby="fullname"
+      required
+    />
+    <p id="fullnameError" style="color: red; font-size: 11px; font-size: 10px"></p>
+  </div>
+
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px" id="email">Email <span class="text-danger"> *</span></span>
+    <input
+      type="email"
+      name="email"
+      id="email-input"
+      class="form-control"
+      placeholder="calondpr@gmail.com"
+      aria-label="email"
+      aria-describedby="email"
+      required
+    />
+    <p id="emailError" style="color: red; font-size: 11px"></p>
+  </div>
+
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px">Jenis Kelamin <span class="text-danger">*</span></span>
+    <select name="gender" class="form-control form-control-sm" style="width: 100%; height: 40px" required>
+      <option value="">-pilih-</option>
+      <option value="m">Laki-laki</option>
+      <option value="f">Perempuan</option>
+    </select>
+    <p id="genderError" style="color: red; font-size: 11px"></p>
+  </div>
+
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px" id="address">Alamat <span class="text-danger"> *</span></span>
+    <input
+      type="text"
+      name="address"
+      id="address-input"
+      class="form-control"
+      placeholder="Alamat Lengkap"
+      aria-label="address"
+      aria-describedby="address"
+      required
+    />
+    <p id="addressError" style="color: red; font-size: 11px"></p>
+  </div>
+
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px" id="religion">Agama <span class="text-danger">*</span></span>
+    <select
+      name="religion_id"
+      placeholder="Agama"
+      class="form-control form-control-sm"
+      style="width: 100%; height: 40px"
+      id="selAgama"
+      required
+    >
+      <option value="">-pilih-</option>
+      <option value="1">Islam</option>
+      <option value="2">Kristen</option>
+      <option value="3">Hindu</option>
+      <option value="4">Budha</option>
+      <option value="5">Konghucu</option>
+    </select>
+    <p id="religionError" style="color: red; font-size: 11px"></p>
+  </div>
+
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px">Nomor HP / Whatsapp <span class="text-danger">*</span></span>
+    <div class="input-group">
+      <input
+        type="number"
+        name="phone"
+        min="11111111"
+        id="phone-input"
+        class="form-control"
+        placeholder="083 xxxx"
+        aria-label="whatsapp"
+        aria-describedby="basic-addon1"
+        required
+      />
+    </div>
+    <p id="phoneError" style="color: red; font-size: 11px"></p>
+  </div>
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px" id="suku">Suku</span>
+    <input type="text" id="suku" name="suku" class="form-control" placeholder="Suku" aria-label="suku" aria-describedby="suku" />
+    <p id="sukuError" style="color: red; font-size: 11px"></p>
+  </div>
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px" id="fullname">Status Calon <span class="text-danger">*</span></span>
+    <div class="d-sm-flex">
+      <label class="mr-1">
+        <input type="radio" name="incumbent" class="btn-input-element" value="1" selected checked />
+        <div class="card card-default card-input">
+          <div class="card-body py-1">Petahana</div>
+        </div>
+      </label>
+      <label>
+        <input type="radio" name="incumbent" class="btn-input-element" value="0" />
+        <div class="card card-default card-input">
+          <div class="card-body py-1">Pendatang Baru</div>
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px">Jenis Pemilu <span class="text-danger">*</span></span>
+    <div class="d-sm-flex">
+      <label class="mr-1">
+        <input type="radio" id="pemilu_type" name="pemilu_type" checked selected class="btn-input-element" value="pileg" />
+        <div class="card card-default card-input">
+          <div class="card-body py-1">Pileg</div>
+        </div>
+      </label>
+      <label>
+        <input type="radio" id="pemilu_type" name="pemilu_type" class="btn-input-element" value="pilkada" />
+        <div class="card card-default card-input">
+          <div class="card-body py-1">Pilkada</div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="mb-2 col-md-6" id="selectPileg">
+    <span class="form-label" style="font-size: 16px">Pileg <span class="text-danger">*</span></span>
+    <select
+      name="pileg_type"
+      placeholder="Kategori Pemilu"
+      class="form-control form-control-sm"
+      style="width: 100%; height: 40px"
+      id="selPileg"
+    >
+      <option value="1">DPR - RI</option>
+      <option value="2">DPRD - Provinsi</option>
+      <option value="3">DPRD - Kota/Kabupaten</option>
+    </select>
+  </div>
+
+  <div class="mb-2 col-md-6" id="selectPilkada">
+    <span class="form-label" style="font-size: 16px">Pilkada <span class="text-danger">*</span></span>
+    <select
+      name="pilkada_type"
+      placeholder="Kategori Pemilu"
+      class="form-control form-control-sm"
+      style="width: 100%; height: 40px"
+      id="selPilkada"
+    >
+      <option value="1">Bupati</option>
+      <option value="2">Gubernur</option>
+    </select>
+  </div>
+
+  <div class="mb-2 col-md-6">
+    <span class="form-label" style="font-size: 16px" id="dapil-input">Dapil <span class="text-danger">*</span></span>
+    <select id="dapil-input" name="id_dapil" class="form-control select2 ajax-id-dapil" required></select>
+    <p id="dapilError" style="color: red; font-size: 11px"></p>
+  </div>
+  <div class="mb-2 col-md-6" id="selectPartai">
+    <span class="form-label" style="font-size: 16px">Partai <span class="text-danger">*</span></span>
+    <select id="party-input" class="form-control select2" name="partai" required></select>
+    <p id="partaiError" style="color: red; font-size: 11px"></p>
+  </div>
+
+  <div class="mb-2 col-md-6" id="selectRegion">
+    <span class="form-label" style="font-size: 16px">Wilayah <span class="text-danger">*</span></span>
+    <select id="region-input" class="form-control select2" name="region_id" required></select>
+    <p id="regionError" style="color: red; font-size: 11px"></p>
+  </div>
+
+  <div class="mb-2 col-md-6">
+    <label class="form-label" style="font-size: 16px" id="referral_code">Referral Code</label>
+    <input
+      type="text"
+      name="referral_code"
+      id="referral-code-input"
+      class="form-control"
+      placeholder="Referral Code"
+      aria-label="referral code"
+      aria-describedby="referral_code"
+      style="margin-top: 0"
+    />
+    <p id="referralCodeError" style="color: red; font-size: 11px; font-size: 10px"></p>
+  </div>
+
+  <div class="col-md-12" style="align-items: center">
+    <span
+      style="font-family: 'Poppins'; font-style: normal; font-weight: 500; font-size: 16px; line-height: 140%; color: #1e3864"
+      id="password"
+      >Password (min. 8 character)</span
+    >
+    <div class="position-relative">
+      <input
+        type="password"
+        name="password"
+        class="form-control my-2"
+        id="password-input"
+        placeholder="Password"
+        aria-label="password"
+        aria-describedby="password"
+        required
+      />
+
+      <span
+        class="toggle-password"
+        onclick="togglePasswordVisibility()"
+        style="margin-left: 17rem; margin-top: -45px; cursor: pointer; position: absolute; right: 10px"
+      >
+        <i class="fas fa-eye"></i>
+      </span>
+      <p id="passwordError" style="color: red; font-size: 11px"></p>
+    </div>
+  </div>
+  <div class="ml-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onchange="toggleButtonState()" />
+      <label class="form-check-label" for="defaultCheck1"> Agree to <a href="/terms-condition" class="text-company">Terms and Conditions</a> </label>
+    </div>
+  </div>
+  <div class="mt-2 w-100">
+    <button type="submit" class="btn btn-login background-company btn-block mt-4" id="registerBtn" disabled>Daftar</button>
+    <div class="mt-1 text-center">
+      <span>Sudah memiliki Akun ? <a href="/login">Login</a></span>
+    </div>
+  </div>
+</form>
+
+<script>
+  function toggleButtonState() {
+    const checkbox = document.getElementById("defaultCheck1");
+    const registerButton = document.getElementById("registerBtn");
+
+    registerButton.disabled = !checkbox.checked;
+    registerButton.classList.toggle("disabled", !checkbox.checked);
+  }
+
+  var pilegSelect = document.getElementById("selectPileg");
+  var pilkadaSelect = document.getElementById("selectPilkada");
+
+  pilkadaSelect.style.display = "none";
+
+  var radioButtons = document.querySelectorAll('input[name="pemilu_type"]');
+  var registerBtn = document. getElementById("registerBtn");
+  var selectPartai = document.getElementById("selectPartai");
+  var selectRegion = document.getElementById("selectRegion");
+
+  for (var i = 0; i < radioButtons.length; i++) {
+    radioButtons[i].addEventListener("change", function () {
+      if (this.value === "pileg") {
+        pilegSelect.style.display = "block";
+        pilkadaSelect.style.display = "none";
+      } else if (this.value === "pilkada") {
+        pilegSelect.style.display = "none";
+        pilkadaSelect.style.display = "block";
+      }
+    });
+  }
+
+  $(function () {
+    getReferalCode();
+    $("#selPileg").change(function () {
+      $(".ajax-id-dapil").val("").trigger("change");
+    });
+    $(".ajax-id-dapil").select2({
+      ajax: {
+        url: function (params) {
+          return API_URL + "/v1/pol/dapil?pileg_type=" + $("#selPileg").val();
+        },
+        dataType: "json",
+        delay: 250,
+        data: function (params) {
+          var query = {
+            search: params.term,
+          };
+          return query;
+        },
+        processResults: function (res) {
+          var data = $.map(res.data.data, function (obj) {
+            obj.text = obj.text || obj.value;
+            return obj;
+          });
+          return {
+            results: data,
+          };
+        },
+      },
+    });
+    $.get(API_URL + "/v1/pol/partai", function (res) {
+      if (res.status == 200) {
+        $.each(res.data, function (index, item) {
+          var option = `
+            <option value="${item.code}" style="background-image:url(${item.logo})"> ${item.value}</option>
+          `;
+          $("#party-input").append(option);
+        });
+        $("#party-input").select2();
+      }
+    });
+
+    $.get(API_URL + "/v1/package/region-category", function (res) {
+      if (res.status == 200) {
+        $.each(res.data, function (index, item) {
+          var option = `
+            <option value=${item.id}> ${item.name}</option>
+          `;
+          $("#region-input").append(option);
+        });
+        $("#region-input").select2();
+      }
+    });
+
+    $("#register").submit(function (e) {
+      e.preventDefault();
+      registerBtn.disabled = true;
+      registerBtn.innerHTML = loader;
+
+      var formDataArray = $(this).serializeArray();
+
+      var formDataJSON = {};
+      $.each(formDataArray, function (index, field) {
+        formDataJSON[field.name] = field.value;
+      });
+      formDataJSON["religion"] = getLabelByValue("selAgama", $("#selAgama").val());
+      formDataJSON["incumbent"] = parseInt(formDataJSON["incumbent"]);
+      formDataJSON["pileg_type"] = parseInt(formDataJSON["pileg_type"]);
+      formDataJSON["id_dapil"] = parseInt(formDataJSON["id_dapil"]);
+      formDataJSON["pemilu_id"] = parseInt(formDataJSON["pemilu_id"]);
+      formDataJSON["region_id"] = parseInt(formDataJSON["region_id"]);
+
+      $.ajax({
+        url: API_URL + "/v1/auth/signup",
+        method: "POST",
+        data: JSON.stringify(formDataJSON),
+        contentType: "application/json",
+        success: function (res) {
+          if (res.status === 200) {
+            registerBtn.disabled = false;
+            registerBtn.innerHTML = "Daftar";
+            Swal.fire({
+              title: "Registrasi Berhasil",
+              text: "Silakan cek email Anda untuk konfirmasi akun",
+              icon: "success",
+              confirmButtonText: "Kembali ke Login",
+            }).then(() => {
+              window.location.href = `/login`;
+            });
+          }
+          if (res.status === 400) {
+            registerBtn.disabled = false;
+            registerBtn.innerHTML = "Daftar";
+            Swal.fire({
+              title: "Ups, ada eror",
+              text: res.details[0].error,
+              icon: "warning",
+              confirmButtonText: "ulangi",
+            }).then(() => {});
+          }
+        },
+
+        error: function (xhr, status, error) {
+          var responseBody = xhr.responseText;
+          var res = JSON.parse(responseBody);
+          Swal.fire({
+            title: "Ups, ada eror",
+            text: res.details[0].field + " : " + res.details[0].error,
+            icon: "warning",
+            confirmButtonText: "ulangi",
+          }).then(() => {
+            registerBtn.disabled = false;
+            registerBtn.innerHTML = "Daftar";
+          });
+          registerBtn.disabled = false;
+          registerBtn.innerHTML = "Daftar";
+        },
+      });
+    });
+  });
+
+  function togglePasswordVisibility() {
+    var passwordInput = document.getElementById("password-input");
+    var togglePassword = document.querySelector(".toggle-password");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+      passwordInput.type = "password";
+      togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+  }
+  function getLabelByValue(selectId, value) {
+    var selectElement = document.getElementById(selectId);
+    var options = selectElement.options;
+
+    for (var i = 0; i < options.length; i++) {
+      if (options[i].value === value) {
+        return options[i].textContent || options[i].innerText;
+      }
+    }
+    return null;
+  }
+
+  userlog = cekLogedIn();
+  if (userlog.state.value.user) {
+    window.location.href = "/app/dashboard-politik";
+  }
+
+  function getReferalCode() {
+    var revCode = "";
+    refObj = GetLocalStorage("referal_code");
+    if (refObj !== undefined) {
+      revCode = refObj;
+    }
+    $("#referral-code-input").val(revCode);
+  }
+</script>

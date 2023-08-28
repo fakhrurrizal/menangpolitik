@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <meta
+      property="og:image"
+      content="{{.layoutData.FrontEndUrl}}/assets/images/polintar/logo.png"
+    />
+    <meta
+      property="og:image:secure_url"
+      content="{{.layoutData.FrontEndUrl}}/assets/images/polintar/logo.png"
+    />
+    <meta name="theme-color" content="{{.Color}}" />
+
+    <meta name="author" content="{{.Author}}" />
+    <title id="titleWebsite">{{.Title}}</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="{{.layoutData.FrontEndUrl}}/assets/images/menangpol/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="  {{.layoutData.FrontEndUrl}}/assets/images/menangpol/favicon-16x16.png"
+    />
+
+    <link rel="stylesheet" href="/assets/css/style-menangpol.css" />
+    <link rel="stylesheet" href="/assets/css/menangpol.css" />
+    <link rel="stylesheet" href="/assets/css/responsive.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="/assets/js/common.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script>
+      var SITE_URL = "{{.SiteUrl}}";
+      var API_URL = "{{.layoutData.ApiUrl}}";
+    </script>
+    <title>Signout All | Menangpol</title>
+
+    <style>
+      .btn_signout{
+        background-color: #121212;
+        width: 100%;
+        color: #fff;
+        border: 1px solid #121212;
+      }
+      .btn_signout:hover{
+        background-color: #fff;
+        border: 1px solid #121212;
+        color: #121212;
+      }
+    </style>
+  </head>
+
+  <body>
+    {{template "components/alert" .}}
+    <div class="wrapper">
+      <div class="container mt-md-4 row pt-5 mx-auto">
+        <div class="col-md-6" data-aos="fade-right">
+          <img
+            class="img-fluid"
+            src="{{.layoutData.FrontEndUrl}}/assets/images/menangpol/forgot-password.svg"
+            alt=""
+            width="620px"
+            height="620px"
+          />
+        </div>
+        <div
+          class="col-md-5 pl-md-5 pt-md-5"
+          data-aos="fade-left"
+          data-aos-delay="300"
+        >
+          <div
+            class="card mt-5"
+            style="
+              max-width: 390px;
+              background-color: #ffffff;
+              border-radius: 12px;
+              padding: 32px 40px 32px 40px;
+            "
+          >
+            <h3 class="title-login" style="color: #121212;">Masukkan PIN</h3>
+            <div style="margin-top: 30px;">
+              <div style="align-items: center;">
+                <div class="position-relative">
+                  <input
+                    type="text"
+                    class="form-control my-2"
+                    id="pin-input"
+                    placeholder=" PIN"
+                    aria-label="pin"
+                    aria-describedby="pin"
+                  />
+                  <p id="pinError" style="color: red;"></p>
+                </div>
+              </div>
+              <div class="mt-5">
+                <button class="btn btn_signout" onclick="sendPin()" id="loginBtn">
+                  Kirim
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script src="/assets/js/common.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  var nextLocation = "{{.NextLocation}}";
+
+  var user = {
+    state: {
+      value: {
+        accessToken: "",
+        user: {
+          isDemo: true,
+        },
+        modules: [],
+      },
+    },
+  };
+
+  const url = new URL(window.location.href);
+
+  const queryParams = new URLSearchParams(url.search);
+
+  const pinValue = queryParams.get("pin");
+
+  const endpoint = API_URL + "/v1/auth/signout/all";
+
+  if (pinValue !== "") {
+    fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ pin: pinValue }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 200) {
+          console.log("data", data.data);
+          user = {
+            state: {
+              value: {
+                accessToken: "Bearer " + data.data.access_token,
+                user: {
+                  isDemo: true,
+                },
+              },
+            },
+          };
+          getMe();
+          showAlert("success", "Anda berhasil keluar di perangkat lainnya");
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Kirim";
+        }
+      })
+      .catch((error) => {
+        response.json().then((data) => {
+          showAlert("danger", " Terjadi Kesalahan ");
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Kirim";
+        });
+      });
+  }
+
+  function goToRegisterPage() {
+    window.location.href = "/register";
+  }
+
+  var pinInput = document.getElementById("pin-input");
+
+  pinInput.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      sendPin();
+    }
+  });
+
+  function sendPin() {
+    var loginBtn = document.querySelector("#loginBtn");
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = loader;
+    var pin = document.getElementById("pin-input").value;
+    var pinError = document.getElementById("pinError");
+
+    pinError.textContent = "";
+
+    if (!pin) {
+      pinError.textContent = "PIN harus diisi";
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = "Kirim";
+      return;
+    }
+
+    if (pin.length < 6) {
+      pinError.textContent = "PIN minimal 6 digit";
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = "Kirim";
+      return;
+    }
+
+    fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ pin: pin }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 200) {
+          console.log("data", data.data);
+          user = {
+            state: {
+              value: {
+                accessToken: "Bearer " + data.data.access_token,
+                user: {
+                  isDemo: true,
+                },
+              },
+            },
+          };
+          getMe();
+          showAlert("success", "Anda berhasil keluar di perangkat lainnya.");
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Kirim";
+        } else {
+          showAlert("danger", data.message);
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Kirim";
+        }
+      })
+      .catch((error) => {
+        response.json().then((data) => {
+          showAlert("danger", " Terjadi Kesalahan ");
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Kirim";
+        });
+      });
+  }
+
+  function isValidEmail(email) {
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  function setLocalStorageItem(key, value) {
+    return new Promise((resolve, reject) => {
+      try {
+        localStorage.setItem(key, value);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  function getMe() {
+    fetch(API_URL + "/v1/auth/me", {
+      method: "GET",
+      headers: {
+        Authorization: user.state.value.accessToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status == 200) {
+          var u = data.data;
+          user.state.value.user = u;
+          user.state.value.modules = data.modules;
+          if (u.active_day > 3) {
+            user.state.value.user.isDemo = false;
+          }
+
+          Promise.all([
+            setLocalStorageItem("telin-auth", JSON.stringify(user)),
+            setLocalStorageItem(
+              "polintar-app-settings",
+              JSON.stringify({ state: { drawerWidth: 252 }, version: 0 })
+            ),
+            setLocalStorageItem(
+              "polintar-filter-location",
+              JSON.stringify({
+                state: {
+                  value: {
+                    dapil: { id: u.id_dapil, label: u.detail_dapil.nm_dapil },
+                    pileg_type: {
+                      id: u.detail_pileg.id_pileg,
+                      label: u.detail_pileg.nm_pileg,
+                    },
+                  },
+                },
+                version: 0,
+              })
+            ),
+          ])
+            .then(() => {
+              location.href = "/app/dashboard-politik";
+            })
+            .catch((error) => {
+              console.error("Error setting localStorage items:", error);
+            });
+          userlog = cekLogedIn();
+          location.href = "/app/dashboard-politik";
+          if (nextLocation != "/" && userlog.state.value.user) {
+            location.href = "/app/dashboard-politik";
+          }
+          location.href = nextLocation;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+  userlog = cekLogedIn();
+  if (userlog.state.value.user) {
+    window.location.href = "/app/dashboard-politik";
+  }
+</script>

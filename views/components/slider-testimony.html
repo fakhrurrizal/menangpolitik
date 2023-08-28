@@ -1,0 +1,69 @@
+<div class="text-center h3 font-weight-bold" data-aos="zoom-in-up" data-aos-delay="300">APA KATA MEREKA?</div>
+<style>
+  .item-testimoni {
+    padding: 40px 40px 40px 40px;
+  }
+</style>
+<div class="swiper container sliderTestimoy py-3 py-md-5" data-aos="zoom-in-down" data-aos-delay="600">
+  <div class="swiper-wrapper" id="swiperSlide"></div>
+  <div id="sliderTestimoyPaging" class="swiper-pagination"></div>
+</div>
+<script>
+  function getTestimonial() {
+    var url = API_URL + `/v1/testimoni`;
+
+    $.get(url, function (res) {
+      var card = "";
+
+      var reversedData = res.data.reverse();
+
+      $.each(reversedData, function (index, obj) {
+        card += `
+          <div class="swiper-slide d-flex align-items-center" >
+        <div class="item-testimoni">
+          <img src="${obj.image}" class="img-fluid" width="250px" />
+          <h4 class="text-center">${obj.name}</h4>
+          <h5 style="font-weight: 400;
+  font-size: 19px;">
+            "${obj.description}"
+          </h5>
+        </div>
+      </div>
+        `;
+      });
+      $("#swiperSlide").html(card);
+
+      var swiper = new Swiper(".sliderTestimoy", {
+        slidesPerView: 1,
+        breakpoints: {
+          768: {
+            slidesPerView: 2,
+            spaceBetween: 20,
+          },
+          992: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+          1400: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+        },
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: "#sliderTestimoyPaging",
+          dynamicBullets: true,
+        },
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    getTestimonial();
+  });
+</script>

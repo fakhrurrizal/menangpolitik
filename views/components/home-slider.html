@@ -1,0 +1,53 @@
+<div class="swiper homeSwiper py-3 py-md-5" style="height: 70vh">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide d-flex align-items-center">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-6" data-aos="fade-right">
+          <h1 class="color-purple"><span class="op-05">PLATFORM</span> SUPERAPPS POLITIK <span class="op-05"> DI INDONESIA</span></h1>
+          <div class="my-4">
+            <div class="d-flex">
+              <button class="btn bg-purple text-white font-weight-bold">Coba Trial</button>
+              <a class="btn mx-3 btn-outline-purple font-weight-bold" href="#fitur">Lihat Fitur</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <img
+            data-src="/assets/images/slider-shape.png"
+            alt=""
+            style="position: absolute; width: 400px; height: 400px; top: -70px; right: 90px"
+          />
+          <div class="d-flex justify-content-center" data-aos="fade-left">
+            <img src="/assets/images/platform.png" alt="" width="250px" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-slide">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-6">
+          <div class="d-flex justify-content-center" data-aos="fade-left">
+            <img src="/assets/images/survey.png" alt="" />
+          </div>
+        </div>
+        <div class="col-md-6" data-aos="fade-right">
+          <h1>PLATFORM Survey POLITIK DI INDONESIA</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="swiper-pagination" id="homeSwiperPaging"></div>
+</div>
+<script>
+  var swiper = new Swiper(".homeSwiper", {
+    loop: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: "#homeSwiperPaging",
+      dynamicBullets: true,
+    },
+  });
+</script>

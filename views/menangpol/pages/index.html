@@ -1,0 +1,960 @@
+<style>
+  .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .accordion-item {
+    background-color: #eeeae7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .accordion-content {
+    display: none;
+    margin-top: 10px;
+    overflow: hidden;
+    height: 20;
+    transition: height 0.3s ease;
+  }
+
+  .active .accordion-content {
+    height: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .accordion-header span {
+    color: #000;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: 0.2px;
+  }
+
+  .accordion-content p {
+    color: var(--primarytext, #555);
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    text-align: left;
+    line-height: 22px;
+  }
+
+  /* Gaya untuk icon arrow */
+  .arrow-icon::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #333;
+    border-right: 2px solid #333;
+    transform: rotate(135deg);
+    transition: transform 0.2s ease;
+  }
+
+  .active .arrow-icon::before {
+    transform: rotate(-45deg);
+  }
+
+  .align-middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 50px;
+    font-size: 16px;
+  }
+
+  .card-feature{
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  }
+</style>
+
+<main style="font-family: Poppins;">
+  <section
+    id="home"
+    class="scroll"
+    style="
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      background-color: #f0f0f0;
+    "
+  >
+  <img
+  src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693193469.png"
+  width="100%"
+  alt="maps home"
+  style="position: absolute;"
+  class="banner-one__moc"
+  data-aos="fade-left"
+  data-aos-duration="3000"
+/>
+    <div class="container">
+
+      <div class="row hero">
+        <div class="col-md-7 col-12">
+          <h1
+            style="
+              font-family: Poppins;
+              font-weight: 700;
+              font-size: 43px;
+              margin-bottom: 20px;
+            "
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            Berpolitik Pintar Lebih Mudah Dengan Menang Politik
+          </h1>
+          <h6
+            style="
+              font-family: Poppins;
+              font-weight: 500;
+              line-height: 28px;
+              margin-top: 25px;
+            "
+            data-aos="fade-right"
+            data-aos-duration="900"
+          >
+            Menang Politik adalah sebuah platform untuk menavigasi data pemilih
+            yang tersebar di berbagai Daerah Pemilihan (Dapil) yang terdaftar di
+            Komisi Pemilihan Umum Indonesia. Menang Politik bersifat independen
+            dan tidak terafiliasi dengan Partai Politik dan kelompok manapun.
+            <!-- Platform ini menyediakan berbagai fitur
+            dan sumber daya yang membantu calon legislative dalam
+            merencanakan kampanye, membangun strategi, dan mendekatkan
+            dengan calon pemilih. -->
+          </h6>
+          <div
+            class="d-flex button-getstart mt-4"
+            data-aos="fade-right"
+            data-aos-duration="1000"
+          >
+            <button
+              onclick="window.location.href='/register'"
+              class="btn btn-demo px-4 py-2 btnSignUp"
+            >
+              <i class="fas fa-play"></i> Demo
+            </button>
+
+            <button
+              class="btn btn-start ml-3 py-2 btnSignUp"
+              onclick="window.location.href='/login'"
+            >
+              <i class="fas fa-door-open"></i> Mulai Sekarang
+            </button>
+
+            <button
+              onclick="window.location.href='/register'"
+              class="btn btn-demo px-4 py-2 btnSignIn"
+            >
+              <i class="fas fa-door-open"></i> Dashboard
+            </button>
+          </div>
+        </div>
+        <div
+          class="col-md-5 col-12 d-flex justify-content-center align-items-center mt-4"
+        >
+          <div
+            id="imageCarousel"
+            class="carousel slide"
+            data-ride="carousel"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692974873.png"
+                  alt="Gambar 1"
+                  class="d-block w-100"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692974916.png"
+                  alt="Gambar 2"
+                  class="d-block w-100"
+                />
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692974897.png"
+                  alt="Gambar 3"
+                  class="d-block w-100"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="fitur"
+    class="scroll"
+    style="display: flex; padding-bottom: 90px; text-align: center;"
+  >
+    <div class="container">
+      <h2
+        class="title-hero text-center title-underline"
+        data-aos="fade-down"
+        data-aos-duration="1000"
+        style="padding-top: 100px;"
+      >
+        Fitur dan Layanan Menangpol
+      </h2>
+
+      <div class="row"  data-aos="fade-up" data-aos-duration="1000">
+        <!-- <div class="col-md-12 mt-5">
+          Data fitur Tidak Ada
+        </div> -->
+        <div class="col-md-3 mt-5">
+          <div class="card p-3 card-feature">
+            <div class="title-icon">
+              <img src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693024898.png" alt="" width="40">
+              <h4 style="font-weight: 600;margin-top: 10px;">Data Demografi</h4>
+            </div>
+            <div class="content">
+              <p style="font-size: 15px; line-height: 1.5;">
+                Data Demografi memberikan wawasan mendalam tentang profil
+                penduduk dan pemilih di berbagai wilayah melalui analisis yang
+                canggih.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mt-5">
+          <div class="card p-3 card-feature">
+            <div class="title-icon">
+              <img src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693025065.png" alt="" width="40">
+              <h4 style="font-weight: 600;margin-top: 10px;">Data Politik</h4>
+            </div>
+            <div class="content">
+              <p style="font-size: 15px; line-height: 1.5;">
+                Data Politik memberikan pandangan komprehensif tentang tren Dari
+                hasil pemilihan umum hingga poling dan survei opini.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mt-5">
+          <div class="card p-3 card-feature">
+            <div class="title-icon">
+              <img src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693025203.png" alt="" width="40">
+              <h4 style="font-weight: 600;margin-top: 10px;">Proyeksi Kursi Politik</h4>
+            </div>
+            <div class="content">
+              <p style="font-size: 15px; line-height: 1.5;">
+                Anda dapat mengidentifikasi tren dan memetakan strategi kampanye
+                yang efektif, untuk memenangkan kursi dalam pemilihan.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mt-5">
+          <div class="card p-3 card-feature">
+            <div class="title-icon">
+              <img src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693025501.png" alt="" width="40">
+              <h4 style="font-weight: 600;margin-top: 10px;">Audiences</h4>
+            </div>
+            <div class="content">
+              <p style="font-size: 15px; line-height: 1.5;">
+                Anda dapat merancang pesan kampanye yang lebih efektif dan
+                relevan. Anda dapat mengakses wawasan yang mendalam dari pemilih
+                muda hingga kalangan profesional.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mt-5">
+          <div class="card p-3 card-feature">
+            <div class="title-icon">
+              <img src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693025570.png" alt="" width="40">
+              <h4 style="font-weight: 600;margin-top: 10px;">Kampanye Digital</h4>
+            </div>
+            <div class="content">
+              <p style="font-size: 15px; line-height: 1.5;">
+                Anda dapat merancang kampanye yang menarik dan efektif untuk
+                menjangkau pemilih di berbagai platform dengan melibatkan
+                audiens secara interaktif
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 mt-5">
+          <div class="card p-3 card-feature">
+            <div class="title-icon">
+              <img src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693025065.png" alt="" width="40">
+              <h4 style="font-weight: 600;margin-top: 10px;">Report Kampanye</h4>
+            </div>
+            <div class="content">
+              <p style="font-size: 15px; line-height: 1.5;">
+                Anda dapat melacak dan mengevaluasi dampak pesan kampanye Anda
+                dengan informasi yang akurat dan lengkap untuk mencapai hasil
+                yang lebih baik dalam kampanye politik Anda.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="about"
+    class="scroll"
+    style="
+      display: flex;
+      background-color: rgb(252, 251, 251);
+      padding: 70px 0px;
+    "
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+          <img
+            src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692975207.png"
+            class="img-fluid"
+            alt="about"
+            width="450"
+          />
+        </div>
+        <div class="col-md-6">
+          <h2 data-aos="fade-left" data-aos-duration="900">
+            Kenapa Memilih Aplikasi Menang Politik?
+          </h2>
+          <p
+            style="font-size: 17px; line-height: 30px; margin-top: 20px;"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+          >
+            Aplikasi Menang Politik hadir untuk memberikan Anda keunggulan
+            kompetitif dalam dunia politik dengan menyediakan berbagai fitur dan
+            layanan yang memungkinkan Anda untuk mencapai tujuan politik Anda
+            dengan lebih efektif dan efisien.
+          </p>
+          <p
+            style="font-size: 17px; line-height: 30px; margin-top: 20px;"
+            data-aos="fade-left"
+            data-aos-duration="1500"
+          >
+            Berikut adalah beberapa alasan mengapa memilih Aplikasi Menang
+            Politik:
+          </p>
+          <div class="row" data-aos="fade-left" data-aos-duration="1800">
+            <div class="col-md-6">
+              <i class="fas fa-check-circle mx-2"></i>
+              <span
+                style="font-size: 17px; line-height: 30px; margin-top: 20px;"
+                >Wawasan Mendalam</span
+              >
+            </div>
+            <div class="col-md-6">
+              <i class="fas fa-check-circle mx-2"></i>
+              <span
+                style="font-size: 17px; line-height: 30px; margin-top: 20px;"
+                >Strategi yang Lebih Tepat</span
+              >
+            </div>
+            <div class="col-md-6">
+              <i class="fas fa-check-circle mx-2"></i>
+              <span
+                style="font-size: 17px; line-height: 30px; margin-top: 20px;"
+                >Target Audiens yang Tepat</span
+              >
+            </div>
+            <div class="col-md-6">
+              <i class="fas fa-check-circle mx-2"></i>
+              <span
+                style="font-size: 17px; line-height: 30px; margin-top: 20px;"
+                >Analisis Data Politik</span
+              >
+            </div>
+            <div class="col-md-6">
+              <i class="fas fa-check-circle mx-2"></i>
+              <span
+                style="font-size: 17px; line-height: 30px; margin-top: 20px;"
+              >
+                Analisis Mendalam</span
+              >
+            </div>
+            <div class="col-md-6">
+              <i class="fas fa-check-circle mx-2"></i>
+              <span
+                style="font-size: 17px; line-height: 30px; margin-top: 20px;"
+                >Wawasan Demografi</span
+              >
+            </div>
+          </div>
+          <button
+            class="btn btn-started py-2 mt-4"
+            onclick="window.location.href='/login'"
+            data-aos="fade-left"
+            data-aos-duration="2000"
+          >
+            <i class="fas fa-door-open"></i> Mulai Sekarang
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="harga"
+    class="scroll"
+    style="
+      display: flex;
+      text-align: center;
+      background-color: #f0f0f0;
+      justify-content: center;
+    "
+  >
+    <div class="container">
+      <h2
+        class="title-hero text-center title-underline"
+        data-aos="fade-down"
+        data-aos-duration="1000"
+        style="padding-top: 100px;"
+      >
+        Harga Paket
+      </h2>
+
+      <div
+        class="justify-content-center row mt-5"
+        data-aos="fade-right"
+        data-aos-duration="1000"
+      >
+        <div class="floating-select d-flex flex-column custom-dropdown">
+          <span style="text-align: left; padding-left: 10px;">Wilayah</span>
+          <select
+            name=""
+            placeholder="Kategori Pemilu"
+            class="form-control form-control-sm mx-2"
+            style="width: 250px; height: 40px; border-radius: 10px;"
+            id="selWilayah"
+          >
+            <option value="" selected disabled hidden>Pilih wilayah</option>
+          </select>
+          <p id="selWilayahError" style="color: red; font-size: 13px;"></p>
+        </div>
+        <div class="floating-select d-flex flex-column">
+          <span style="text-align: left; padding-left: 10px;"
+            >Jenis Pemilu</span
+          >
+          <select
+            name=""
+            placeholder="Kategori Pemilu"
+            class="form-control form-control-sm mx-2"
+            style="width: 250px; height: 40px; border-radius: 10px;"
+            id="selPil"
+          >
+            <option value="" disabled selected hidden
+              >Pilih jenis pemilu</option
+            >
+            <option value="1">Pemilu Legislatif</option>
+            <option value="2" disabled>Pemilihan Kepala Daerah</option>
+          </select>
+          <p id="selPillError" style="color: red; font-size: 13px;"></p>
+        </div>
+      </div>
+
+      <div
+        data-aos="fade-down"
+        data-aos-duration="1000"
+        class="row mx-auto mt-2 mb-5"
+        id="listTab"
+      ></div>
+    </div>
+  </section>
+
+  <section
+    id="about"
+    class="scroll"
+    style="
+      display: flex;
+      background-color: rgb(252, 251, 251);
+      padding: 70px 0px;
+    "
+  >
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9" data-aos="fade-right" data-aos-duration="900">
+          <h2 class="mt-4">
+            Langkah Pertama Menuju Kemenangan Dimulai dari Sini.
+          </h2>
+          <p style="font-size: 17px; line-height: 30px; margin-top: 20px;">
+            Dengan panduan ahli dan alat yang kuat, Anda akan memulai perjalanan
+            menuju kemenangan yang gemilang. Bergabunglah sekarang dan wujudkan
+            visi politik Anda dengan sukses!
+          </p>
+          <button
+            class="btn btn-started py-2 mt-4"
+            onclick="window.location.href='/login'"
+          >
+            <i class="fas fa-door-open"></i>Gabung Sekarang
+          </button>
+        </div>
+        <div
+          class="col-md-3 image-success"
+          data-aos="fade-left"
+          data-aos-duration="900"
+        >
+          <img
+            src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692975311.png"
+            class="img-fluid"
+            alt="success"
+            width="450"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+  <section
+    class="scroll"
+    style="
+      display: flex;
+      text-align: center;
+      background-color: #ffffff;
+      justify-content: center;
+      padding-bottom: 90px;
+    "
+  >
+    <div class="container" style="padding-bottom: 20px;">
+      <h2
+        class="title-hero text-center title-underline"
+        data-aos="fade-down"
+        data-aos-duration="1000"
+        style="padding-top: 100px;"
+      >
+        Pertanyaan Yang Sering Ditanyakan
+      </h2>
+      <div class="justify-content-center">
+        <div
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          style="color: #000;"
+        >
+          <div class="container" style="margin-top: 70px;">
+            <div class="accordion-grp"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <a href="#" data-target="html" class="scroll-to-target scroll-to-top"
+    ><i class="fa fa-angle-up"></i
+  ></a>
+</main>
+<script>
+  $(document).ready(function () {
+    $("#imageCarousel").carousel({
+      interval: 3000,
+      pause: "hover",
+    });
+  });
+</script>
+<script>
+  var selPilkada = "1";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    AOS.init();
+    getAllProduct();
+    $("#selWilayah").change(function () {
+      selWilayah = $("#selWilayah").val();
+      setActiveBlock(selWilayah);
+    });
+  });
+
+  function getAllProduct() {
+    var url =
+      API_URL + `/v1/package?order=id&sort=asc&pilkada_type=${selPilkada}`;
+    $.get(url, function (res) {
+      updateSelWilayah(res.data);
+      buildTab(res.data);
+      setActiveBlock(res.data[0].id);
+    });
+  }
+
+  function setActiveBlock(id) {
+    $(".block-package").removeClass("d-block").addClass("d-none");
+    $("#block-" + id).addClass("d-block");
+    var activeElement = $("#block-" + id)
+      .find("> *")
+      .find("> *")
+      .find(".active");
+
+    showTab(activeElement.attr("id"));
+  }
+
+  function updateSelWilayah(arr) {
+    $.each(arr, function (index, obj) {
+      $("#selWilayah").append(
+        `<option    value="${obj.id}">${obj.name}</option>`
+      );
+    });
+  }
+
+  function formatRupiah(number) {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  }
+
+  function buildTab(arr) {
+    var el = "";
+    $.each(arr, function (index, obj) {
+      var pilegv = "";
+      var productv = "";
+      var tabsV = "";
+      $.each(obj.pileg, function (i, pileg) {
+        var pilegvClass = "";
+        if (i == 0) {
+          pilegvClass = "active";
+        }
+        var ids = index + "-" + obj.id + "-" + pileg.id;
+        pilegv += `
+        <li class="nav-item " onclick="showTab(${ids})">
+          <a
+            class="fs-12 px-3 nav-link ${pilegvClass}"
+            id="${ids}"
+            data-toggle="pill"
+            href="#pills-${ids}"
+            role="tab"
+            aria-controls="pills-${ids}"
+            aria-selected="true"
+            >${pileg.name}</a
+          >
+        </li>
+        `;
+
+        var productv = "";
+
+        var populerColor = "";
+        $.each(pileg.products, function (i, product) {
+          var price_product = product.price;
+          if (
+            product.discount_price < price_product &&
+            product.discount_price > 1
+          ) {
+            price_product = product.discount_price;
+          }
+          var productvClass = "";
+          var populer = "";
+          var bgColor = "";
+          var bgPopuler = "";
+          var colorPopuler = "color:#121212;";
+          var sizeCard = "";
+          var margin = "";
+          var colorProduct = ";";
+          var colorValue = "";
+          var marginPrice = "";
+          var colorPrice = "";
+          var effect = "fade-right";
+          var classButtonPrice = "btn__pricing";
+
+          if (i == 1) {
+            effect = "fade-up";
+            populer = "POPULER";
+            marginPrice = "margin-top:25px;";
+            colorProduct = "color: #fff";
+            var classButtonPrice = "btn__pricing__hover";
+            bgColor = "background-color:#404040;";
+            bgPopuler =
+              "background-color:#F3E8FF;padding: 12px 24px;color:#404040;font-weight:800";
+            colorPopuler = "color:white;font-size:15px;";
+            sizeCard = " height:570px";
+            margin = "margin-top:-20px";
+            colorPrice = "color:#fff";
+          }
+          if (i == 2) {
+            effect = "fade-left";
+          }
+
+          productv += `
+              <div class="col-lg-4 mt-4">
+                <div class="pricing-one__single " style="
+                border-radius: 12px;${bgColor};${sizeCard}; ${margin}
+                
+            ">
+                <div class="pricing-one__inner px-3" style="border-radius: 15px;${bgColor}">
+                  <div class="col d-flex justify-content-between align-items-center  p-2">
+                  <h4 style="font-weight:600; ${colorProduct};">${
+            product.product_name
+          }</h4>
+                  <span class="text-uppercase" style="margin-top:-10px;border-radius: 12px; ${bgPopuler}">${populer}</span>
+                </div>
+                  <ul class="list-unstyled pricing-one__list" style="text-align: left;color:#121212;  ">
+                    ${product.product_features
+                      ?.map(
+                        (feature) =>
+                          `<li  style="${colorPopuler} font-size:14px; justify-content:space-between; display:flex "><div><i class="fa fa-check"></i> ${
+                            feature.name
+                          }</div> ${new Intl.NumberFormat().format(
+                            feature.value
+                          )}</li>`
+                      )
+                      .join("")}
+                  </ul>
+                  <div>
+                    <h5 style="text-align:left;${colorPrice};${marginPrice}; font-weight:600">${formatRupiah(
+            price_product
+          )}</h5>
+                    <a  href="#pricing_section"  onclick="addToCart('${
+                      product.id
+                    }', '${
+            product.product_name
+          }', '${price_product}', '${selPilkada}','${pileg.name}','${
+            obj.name
+          }')"><span class="${classButtonPrice} py-3 ">Beli</span></a>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        var tabVClass = "";
+        if (i == 0) {
+          tabVClass = "show active";
+        }
+        tabsV += `
+        <div class="tab-content" id="pills-content-${ids}" style="
+            margin-top: 60px;">
+          <div class="tab-pane fade ${tabVClass}" data-i="${i}"  id="pills-${ids}" role="tabpanel" aria-labelledby="pills-${ids}-tab">
+            <div class="row">
+              ${productv}
+            </div>
+          </div>
+          
+        </div>
+        `;
+      });
+
+      el += `
+      <div class="col-md-12 mx-auto my-2 block-package" id="block-${obj.id}">
+      <ul
+        class="nav nav-pills px-4 mb-3 d-flex justify-content-around px-5  py-2 rounded-md col-md-7 mx-auto"
+        id="pills-tab"
+        role="tablist"
+        style="background: #bebab7;border-radius:5px
+      ">
+        ${pilegv}
+      </ul>
+        ${tabsV}
+    </div>
+
+    `;
+    });
+    $("#listTab").html(el);
+  }
+
+  function showTab(id) {
+    $(".tab-pane").removeClass("show").removeClass("active");
+    $("#pills-" + id)
+      .addClass("show")
+      .addClass("active");
+  }
+
+  $(function () {
+    var u = cekLogedIn();
+    if (u.state === undefined || u.state.value.user === undefined) {
+      setLogout();
+    }
+    if (u.state.value.user !== undefined) {
+      cekMe(u);
+      setLogin();
+    }
+  });
+
+  function setLogin() {
+    var u = cekLogedIn();
+    var user = u.state.value.user;
+    $(".btnSignIn").removeClass("d-none").addClass("d-block");
+    $(".btnSignUp").removeClass("d-block").addClass("d-none");
+  }
+
+  function validateForm() {
+    var selWilayah = document.getElementById("selWilayah");
+    var selPil = document.getElementById("selPil");
+
+    var selWilayahError = document.getElementById("selWilayahError");
+    var selPilError = document.getElementById("selPillError");
+
+    selWilayahError.textContent = "";
+    selPilError.textContent = "";
+
+    if (selWilayah.value === "") {
+      selWilayah.style.border = "1px solid red";
+      selWilayahError.textContent = "Harap pilih wilayah.";
+      return false;
+    } else {
+      selWilayah.style.border = "none";
+    }
+
+    if (selPil.value === "") {
+      selPil.style.border = "1px solid red";
+      selPilError.textContent = "Harap pilih kategori pemilu.";
+      return false;
+    } else {
+      selPil.style.border = "none";
+    }
+
+    return true;
+  }
+
+  function addToCart(id, name, price, tipe, pileg, region) {
+    var isValid = validateForm();
+
+    if (isValid) {
+      u = cekLogedIn();
+      cartLS.add({
+        id,
+        name,
+        price,
+        tipe: tipe,
+        pileg: pileg,
+        region: region,
+        produk: "utama",
+      });
+
+      u = cekLogedIn();
+      cartLS.add({
+        id,
+        name,
+        price,
+        tipe: tipe,
+        pileg: pileg,
+        region: region,
+        produk: "utama",
+      });
+      if (u) {
+        location.href = "/addon";
+      } else location.href = "/addon";
+    }
+  }
+</script>
+
+<script>
+  function getFaq() {
+    var url = API_URL + `/v1/landing-page/faq/all`;
+
+    $.get(url, function (res) {
+      var accordion = "";
+
+      $.each(res.data, function (index, item) {
+        var isActive = index === 0 ? "active" : "";
+
+        accordion += `
+        <div class="accordion-item">
+          <div class="accordion-header ${isActive}">
+            <span style="text-align:left">${item.question}</span>
+            <i class="arrow-icon"></i>
+          </div>
+          <div class="accordion-content" style="display: ${
+            isActive ? "block" : "none"
+          };">
+            <p>
+              ${item.answer}
+            </p>
+          </div>
+        </div>
+      `;
+      });
+      $(".accordion-grp").html(accordion);
+
+      $(".accordion-header").click(function () {
+        if ($(this).hasClass("active")) {
+          $(this).removeClass("active");
+          $(this).siblings(".accordion-content").slideUp("fast");
+        } else {
+          $(".accordion-header").removeClass("active");
+          $(".accordion-content").slideUp("fast");
+          $(this).addClass("active");
+          $(this).siblings(".accordion-content").slideDown("fast");
+        }
+      });
+    });
+  }
+
+  function getFeatured() {
+    var url = API_URL + `/v1/landing-page/feature?flag=f`;
+
+    $.get(url, function (res) {
+      var featur = "";
+      console.log("dataaa", res.data);
+
+      $.each(res.data, function (index, item) {
+        featur += `
+            <div class="col-md-3 mt-5">
+          <div class="card p-3 card-feature" style="box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); ">
+            <div class="title-icon">
+              <img src="${item.image}" alt="${item.title}" width="40">
+              <h4 style="font-weight: 600;margin-top: 10px;">${item.title}</h4>
+            </div>
+            <div class="content">
+              <p style="font-size: 15px; line-height: 1.5;">
+                ${item.description}
+              </p>
+            </div>
+          </div>
+        </div>
+            `;
+      });
+      $("#feature").html(featur);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    $(".selectpicker").selectpicker();
+    getFaq();
+    getFeatured();
+  });
+</script>
+
+<script>
+  const accordionItems = document.querySelectorAll(".accordion-item");
+
+  accordionItems.forEach((item) => {
+    const header = item.querySelector(".accordion-header");
+    const content = item.querySelector(".accordion-content");
+
+    header.addEventListener("click", () => {
+      const isActive = item.classList.contains("active");
+      closeAllAccordionItems();
+
+      if (!isActive) {
+        item.classList.add("active");
+        content.style.display = "block";
+      }
+    });
+  });
+
+  function closeAllAccordionItems() {
+    accordionItems.forEach((item) => {
+      item.classList.remove("active");
+      item.querySelector(".accordion-content").style.display = "none";
+    });
+  }
+</script>

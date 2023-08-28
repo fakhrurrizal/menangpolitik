@@ -1,0 +1,428 @@
+{{template "components/alert" .}} {{template "components/verify-email-success"}}
+<style>
+  .btn-signin {
+    background-color: #121212;
+    width: 100%;
+    color: #fff;
+    border: 1px solid #121212;
+  }
+  .btn-signin:hover {
+    background-color: #fff;
+    border: 1px solid #121212;
+    color: #121212;
+  }
+
+  .form-masuk{
+    width: 40%;
+  }
+
+  
+.btn-daftar{
+  border: 1px solid #000000;
+  border-radius: 5px;
+  width: 100%;
+}
+
+  @media (max-width: 768px) {
+    .form-masuk{
+    width: 100%;
+  }
+  }
+
+</style>
+<section  style="
+background-color: #fff;
+height: 97vh;
+display: flex;
+align-items: center;
+">
+  <div class="row  container pt-1 mx-auto form-masuk" >
+   
+    <div class="col-md-12 card-login" data-aos="fade-left"  data-aos-delay="300">
+      <div
+        style="
+          align-items: center;
+          
+          border-radius: 12px;
+          padding: 32px 40px 32px 40px;
+          border: none;
+        "
+      >
+        <h3 class="title-login mt-4" style="font-size: 2em;text-align: center; font-weight: 600;">
+          Masuk
+        </h3>
+        <div style="margin-top: 20px;">
+            <div>
+              <span
+                style="
+                  font-family: 'Poppins';
+                  font-style: normal;
+                  font-weight: 500;
+                  font-size: 16px;
+                  line-height: 120%;
+                  color: #1e3864;
+                "
+                id="email"
+                >Email Address</span
+              >
+              <input
+                type="email"  
+                class="form-control my-2"
+                placeholder="Username"
+                id="email-input"
+                aria-label="email"
+                aria-describedby="email"
+              />
+              <p id="emailError" style="color: red;"></p>
+            </div>
+          
+          <div style="align-items: center;">
+            <span
+              style="
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 140%;
+                color: #1e3864;
+              "
+              id="password"
+              >Password (min. 8 character)</span
+            >
+            <div class="position-relative">
+              <input
+                type="password"
+                class="form-control my-2"
+                id="password-input"
+                placeholder="Password"
+                aria-label="Username"
+                aria-describedby="password"
+              />
+              <span
+                class="toggle-password"
+                onclick="togglePasswordVisibility()"
+                style="
+                  margin-left: 17rem;
+                  margin-top: -45px;
+                  cursor: pointer;
+                  position: absolute;
+                  right: 10px;
+                "
+              >
+                <i class="fas fa-eye"></i>
+              </span>
+              <p id="passwordError" style="color: red;"></p>
+            </div>
+          </div>
+  
+          <div class="text-right">
+            <a
+              href="/forgot-password"
+              class="text-purple"
+              style="font-size: 14px;"
+              >Forgot Password ?</a
+            >
+          </div>
+          <div class="mt-5">
+            <button class="btn btn-signin" onclick="loginUser()" id="loginBtn">
+              Masuk
+            </button>
+            <span
+              class="btn btn-daftar mt-4"
+              style="cursor: pointer;"
+              onclick="goToRegisterPage()"
+              >Daftar</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="/assets/js/common.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+  $(document).ready(function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const verifyParam = urlParams.get("verify");
+
+    if (verifyParam === "success") {
+      $("#modalVerifySuccess").modal("show");
+    }
+  });
+</script>
+
+<style>
+  #swal2-title {
+    color: red;
+    font-size: 18px;
+  }
+</style>
+
+<script>
+  AOS.init();
+  var nextLocation = "{{.NextLocation}}";
+  var user = {
+    state: {
+      value: {
+        accessToken: "",
+        user: {
+          isDemo: true,
+        },
+        modules: [],
+      },
+    },
+  };
+
+  function goToRegisterPage() {
+    window.location.href = "/register";
+  }
+
+  function togglePasswordVisibility() {
+    var passwordInput = document.getElementById("password-input");
+    var togglePassword = document.querySelector(".toggle-password");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      togglePassword.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+      passwordInput.type = "password";
+      togglePassword.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+  }
+
+  var passwordInput = document.getElementById("password-input");
+
+  passwordInput.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      loginUser();
+    }
+  });
+
+  function togglePasswordVisibility2() {
+    var passwordInput2 = document.getElementById("password2");
+    var togglePassword2 = document.querySelector(".toggle-password2");
+
+    if (passwordInput2.type === "password") {
+      passwordInput2.type = "text";
+      togglePassword2.innerHTML = '<i class="fas fa-eye-slash"></i>';
+    } else {
+      passwordInput2.type = "password";
+      togglePassword2.innerHTML = '<i class="fas fa-eye"></i>';
+    }
+  }
+
+  var passwordInput2 = document.getElementById("password2");
+
+  passwordInput.addEventListener("keyup", function (event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      loginUser();
+    }
+  });
+
+  function loginUser() {
+    var loginBtn = document.querySelector("#loginBtn");
+
+    loginBtn.disabled = true;
+    loginBtn.innerHTML = loader;
+
+    var emailInput = document.getElementById("email-input").value;
+    var passwordInput = document.getElementById("password-input").value;
+
+    var emailError = document.getElementById("emailError");
+    var passwordError = document.getElementById("passwordError");
+
+    emailError.textContent = "";
+    passwordError.textContent = "";
+
+    if (!emailInput) {
+      emailError.textContent = "Email harus diisi";
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = "Masuk";
+      return;
+    } else if (!isValidEmail(emailInput)) {
+      emailError.textContent = "Email tidak valid";
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = "Masuk";
+      return;
+    }
+
+    if (!passwordInput) {
+      passwordError.textContent = "Password harus diisi";
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = "Masuk";
+      return;
+    } else if (passwordInput.length < 8) {
+      passwordError.textContent = "Password harus lebih dari 8 karakter";
+      loginBtn.disabled = false;
+      loginBtn.innerHTML = "Masuk";
+      return;
+    }
+
+    var url = API_URL + "/v1/auth/signin";
+
+    var data = {
+      email: emailInput,
+      password: passwordInput,
+    };
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === 200) {
+          user = {
+            state: {
+              value: {
+                accessToken: "Bearer " + data.data.access_token,
+                user: {
+                  isDemo: true,
+                },
+              },
+            },
+          };
+
+          getMe();
+
+          showAlert("success", "Berhasil Login");
+
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Masuk";
+        } else if (data.status === 403) {
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Masuk";
+
+          const emailValue = document.getElementById("email-input");
+          const passwordValue = document.getElementById("password-input");
+
+          Swal.fire({
+            title: data.error,
+            text: "Apakah anda ingin keluar diperangkat lain ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Keluar di perangkat lain",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              fetch(API_URL + "/v1/auth/signout/all/generate-pin", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email: emailValue.value }),
+              });
+
+              emailValue.value = "";
+              passwordValue.value = "";
+
+              Swal.fire(
+                "Terkirim!",
+                "Kami telah mengirimkan email, silahkan dicek",
+                "success"
+              ).then(() => {
+                location.href = "/signout-all";
+              });
+            }
+          });
+        } else {
+          if (data.error) {
+            message = data.error;
+          }
+
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = "Masuk";
+
+          showAlert("danger", message);
+        }
+      });
+  }
+
+  function isValidEmail(email) {
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  function setLocalStorageItem(key, value) {
+    return new Promise((resolve, reject) => {
+      try {
+        localStorage.setItem(key, value);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  function getMe() {
+    fetch(API_URL + "/v1/auth/me", {
+      method: "GET",
+      headers: {
+        Authorization: user.state.value.accessToken,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status == 200) {
+          var u = data.data;
+          user.state.value.user = u;
+          user.state.value.modules = data.modules;
+          if (u.active_day > 3) {
+            user.state.value.user.isDemo = false;
+          }
+
+          Promise.all([
+            setLocalStorageItem("telin-auth", JSON.stringify(user)),
+            setLocalStorageItem(
+              "polintar-app-settings",
+              JSON.stringify({ state: { drawerWidth: 252 }, version: 0 })
+            ),
+            setLocalStorageItem(
+              "polintar-filter-location",
+              JSON.stringify({
+                state: {
+                  value: {
+                    dapil: { id: u.id_dapil, label: u.detail_dapil.nm_dapil },
+                    pileg_type: {
+                      id: u.detail_pileg.id_pileg,
+                      label: u.detail_pileg.nm_pileg,
+                    },
+                  },
+                },
+                version: 0,
+              })
+            ),
+          ])
+            .then(() => {
+              location.href = "/app/dashboard-politik";
+            })
+            .catch((error) => {
+              console.error("Error setting localStorage items:", error);
+            });
+          userlog = cekLogedIn();
+          location.href = "/app/dashboard-politik";
+          if (nextLocation != "/" && userlog.state.value.user) {
+            location.href = "/app/dashboard-politik";
+          }
+          location.href = nextLocation;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  userlog = cekLogedIn();
+  if (userlog.state.value.user) {
+    window.location.href = "/app/dashboard-politik";
+  }
+</script>

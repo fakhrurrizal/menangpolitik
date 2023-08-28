@@ -1,0 +1,31 @@
+<div class="bg-white">
+  <div class="container">
+    <div class="row py-5" style="font-family: 'Plus Jakarta Sans'; margin-top: 70px;">
+      <div class="m-auto">
+        <img src="/assets/images/success.png" alt="" />
+      </div>
+      <div style="font-weight: 400; font-size: 30px; line-height: 45px; text-align: center" class="mt-3 mb-4">
+        <span
+          >Yeayyy.... Transaksi kamu sudah berhasil silahkan masuk ke <span style="color: #7e22ce">Dashboard > Profile > Status</span> untuk
+          mengetahui langganan anda sudah active</span
+        >
+      </div>
+      <div class="m-auto">
+        <div class="mt-3">
+          <button class="btn text-white" style="background-color: #9333ea; justify-content: center" onclick="{goToDashboardPage()}">
+            Langsung aja ke Dashboard
+          </button>
+        </div>
+        <div class="text-center mt-3">
+          <a href="/" style="text-decoration: none; color: #9333ea">Kembali ke Landing Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function goToDashboardPage() {
+    window.location.href = "/app/dashboard-politik";
+  }
+</script>

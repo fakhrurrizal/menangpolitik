@@ -1,0 +1,397 @@
+<style>
+  .accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .accordion-item {
+    background-color: #eeeae7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px;
+    margin-top: 15px;
+  }
+
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+
+  .accordion-content {
+    display: none;
+    margin-top: 10px;
+  }
+
+  .accordion-header span {
+    color: #000;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 32px;
+    letter-spacing: 0.2px;
+  }
+
+  .accordion-content p {
+    color: var(--primarytext, #555);
+    font-family: Poppins;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 22px;
+  }
+
+  /* Gaya untuk icon arrow */
+  .arrow-icon::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-top: 2px solid #333;
+    border-right: 2px solid #333;
+    transform: rotate(135deg);
+    transition: transform 0.2s ease;
+  }
+
+  .active .arrow-icon::before {
+    transform: rotate(-45deg);
+  }
+
+  .align-middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 16px;
+  }
+  .title-product {
+    margin-top: 100px;
+  }
+
+  @media (max-width: 768px) {
+    .title-product {
+      margin-top: 30px;
+    }
+  }
+</style>
+
+<div class="container pt-5 pb-4 mt-100">
+  <div class="row mt-50" style="justify-content: center; text-align: center;">
+    <div class="col-md-12 hero__intellegence">
+      <span class="px-3 py-1" data-aos="fade-left" data-aos-duration="2000"
+        >Anda Pasti Menang</span
+      >
+      <h3 class="mt-4" data-aos="fade-right" data-aos-duration="2000">
+        Dengan Berpolitik Pintar Anda Akan Lebih Mudah Menang bersama Menang
+        Politik
+      </h3>
+    </div>
+  </div>
+
+  <div style="margin-top: 50px;">
+    <div class="row pt-5 mb-5" id="featured"></div>
+  </div>
+</div>
+<section
+  class="scroll"
+  style="display: flex; background-color: #f0f0f0; padding: 70px 0px;"
+>
+  <div class="container">
+    <div class="row pb-4">
+      <div
+        class="col-md-6 pt-5 mt-md-5"
+        data-aos="fade-right"
+        data-aos-delay="300"
+      >
+        <img
+          class="img-fluid mx-auto d-flex mt-md-2 px-3 py-3"
+          height="100"
+          src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693197384.png"
+          alt=""
+          style="height: 15rem; background-color: #eeeae7; border-radius: 10px;"
+        />
+      </div>
+      <div
+        class="col-md-6 title-product"
+        data-aos="fade-left"
+        data-aos-delay="300"
+      >
+        <h1 style="font-size: 28px; font-weight: 600; font-family: Poppins;">
+          Political Analysis
+        </h1>
+        <p class="align-middle">
+          Analisis politik bertujuan untuk memahami dan menafsirkan fenomena
+          politik, mengidentifikasi pola dan tren, menjelaskan hasil politik,
+          dan membuat prediksi tentang perkembangan di masa depan dengan
+          pengumpulan dan analisis data, melakukan penelitian, dan menggunakan
+          berbagai metodologi, termasuk pendekatan kualitatif dan kuantitatif.
+        </p>
+      </div>
+    </div>
+
+    <div class="row pb-4">
+      <div
+        class="col-md-6 pt-5 mt-md-5 order-0 order-sm-2"
+        data-aos="fade-right"
+        data-aos-delay="300"
+      >
+        <img
+          class="img-fluid mx-auto d-flex mt-md-2 px-3 py-3"
+          height="100"
+          src="{{.layoutData.FrontEndUrl}}/assets/images/menangpol/macbook.svg"
+          alt=""
+          style="height: 15rem; background-color: #eeeae7; border-radius: 10px;"
+        />
+      </div>
+      <div
+        class="col-md-6 title-product"
+        data-aos="fade-left"
+        data-aos-delay="300"
+      >
+        <h1 style="font-size: 28px; font-weight: 600; font-family: Poppins;text-align: right;">
+          Data Demografi
+        </h1>
+        <p class="align-middle text-right">
+          Modul demografi berfungsi untuk mendapatkan insight dari persfektif
+          kependudukan.
+        </p>
+      </div>
+    </div>
+
+    <div class="row pb-4">
+      <div
+        class="col-md-6 pt-5 mt-md-5"
+        data-aos="fade-right"
+        data-aos-delay="300"
+      >
+        <img
+          class="img-fluid mx-auto d-flex mt-md-2 px-3 py-3"
+          height="100"
+          src="https://politikpintar.id/api/assets/uploads/285/2023-08/1693197013.png"
+          alt=""
+          style="height: 15rem; background-color: #eeeae7; border-radius: 10px;"
+        />
+      </div>
+      <div
+        class="col-md-6 title-product"
+        data-aos="fade-left"
+        data-aos-delay="300"
+      >
+        <h1 style="font-size: 28px; font-weight: 600; font-family: Poppins;">
+          Sebaran Desa
+        </h1>
+        <p class="align-middle">
+          Modul ini berfungsi untuk mengetahui partai yang menguasai sutau desa.
+        </p>
+      </div>
+    </div>
+
+    <div class="row pb-4">
+      <div
+        class="col-md-6 pt-5 mt-md-5 order-0 order-sm-2"
+        data-aos="fade-right"
+        data-aos-delay="300"
+      >
+        <img
+          class="img-fluid mx-auto d-flex mt-md-2 px-3 py-3"
+          height="100"
+          src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692974873.png"
+          alt=""
+          style="height: 15rem; background-color: #eeeae7; border-radius: 10px;"
+        />
+      </div>
+      <div
+        class="col-md-6 title-product"
+        data-aos="fade-left"
+        data-aos-delay="300"
+      >
+        <h1 style="font-size: 28px; font-weight: 600; font-family: Poppins;text-align: right;">
+          Analisa Dapil
+        </h1>
+        <p class="align-middle text-right">
+          Modul ini berfungsi untuk mendapatkan insight pemetaan daerah pemilihan.
+        </p>
+      </div>
+    </div>
+
+    <!-- <div class="row" style="position: relative;">
+      <div data-aos="fade-right" data-aos-duration="900">
+        <img
+          src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692974873.png"
+          alt="Analysis"
+          width="400"
+        />
+        <h1 class="mt-4" style="font-weight: 600;">
+          Analisis Politik
+        </h1>
+        <p style="font-size: 17px; line-height: 30px; margin-top: 20px;">
+          Analisis politik bertujuan untuk memahami dan menafsirkan fenomena
+          politik, mengidentifikasi pola dan tren, menjelaskan hasil politik,
+          dan membuat prediksi tentang perkembangan di masa depan dengan
+          pengumpulan dan analisis data, melakukan penelitian, dan menggunakan
+          berbagai metodologi, termasuk pendekatan kualitatif dan kuantitatif.
+        </p>
+      </div>
+
+      <div
+        data-aos="fade-left"
+        style="justify-content: end; text-align: right; margin-top: 40px;"
+        data-aos-duration="900"
+      >
+        <img
+          src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692974897.png"
+          alt="Dapil"
+          width="400"
+        />
+        <h1 class="mt-4" style="font-weight: 600;">
+          Analisa Dapil
+        </h1>
+        <p style="font-size: 17px; line-height: 30px; margin-top: 20px;">
+          Analisa Dapil adalah suatu pendekatan yang bertujuan untuk memahami
+          dan menganalisis Daerah Pemilihan (Dapil) dalam konteks politik.
+          Melalui metode ini, kami mengidentifikasi pola dan tren politik yang
+          berkembang di Dapil, menganalisis hasil-hasil politik yang relevan,
+          dan membuat prediksi tentang potensi perkembangan di masa depan.
+          Pendekatan ini melibatkan pengumpulan data, pelaksanaan penelitian,
+          serta penggunaan berbagai metodologi, termasuk pendekatan kualitatif
+          dan kuantitatif, untuk memberikan wawasan mendalam tentang dinamika
+          politik di setiap Dapil.
+        </p>
+      </div>
+
+      <div data-aos="fade-right" data-aos-duration="900">
+        <img
+          src="https://politikpintar.id/api/assets/uploads/1/2023-08/1692974916.png"
+          alt="Analysis"
+          width="400"
+        />
+        <h1 class="mt-4" style="font-weight: 600;">
+          konsultasi Online
+        </h1>
+        <p style="font-size: 17px; line-height: 30px; margin-top: 20px;">
+          Dengan layanan Konsultasi Online, Anda akan mendapatkan panduan dan
+          wawasan mendalam tentang fenomena politik. Tujuan utama konsultasi
+          politik adalah untuk memahami, menganalisis pola, serta
+          mengidentifikasi tren dalam dunia politik. Melalui berbagai metode,
+          termasuk analisis data, penelitian, dan pendekatan kualitatif serta
+          kuantitatif, kami akan membantu Anda menjelaskan hasil politik yang
+          kompleks dan meramalkan perkembangan di masa depan. Dengan Konsultasi
+          Politik, Anda dapat membuat keputusan yang lebih cerdas dan strategis
+          dalam perjalanan politik Anda.
+        </p>
+      </div>
+
+      <div
+        class="order-2 image-sliders"
+        data-aos="fade-left"
+        data-aos-duration="900"
+        id="scrollable-content"
+      >
+        <div>
+          <h2 class="mt-3 mb-4"></h2>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</section>
+
+<script>
+  const accordionItems = document.querySelectorAll(".accordion-item");
+
+  accordionItems.forEach((item) => {
+    const header = item.querySelector(".accordion-header");
+    const content = item.querySelector(".accordion-content");
+
+    header.addEventListener("click", () => {
+      const isActive = item.classList.contains("active");
+      closeAllAccordionItems();
+
+      if (!isActive) {
+        item.classList.add("active");
+        content.style.display = "block";
+      }
+    });
+  });
+
+  function closeAllAccordionItems() {
+    accordionItems.forEach((item) => {
+      item.classList.remove("active");
+      item.querySelector(".accordion-content").style.display = "none";
+    });
+  }
+</script>
+
+<script>
+  const imageSliders = document.querySelector(".image-sliders");
+  const images = imageSliders.querySelectorAll("img");
+
+  window.addEventListener("scroll", function () {
+    const scrollPosition = window.scrollY;
+
+    images.forEach((img) => {
+      const offset = img.offsetTop;
+      const imgHeight = img.offsetHeight;
+
+      if (scrollPosition >= offset && scrollPosition <= offset + imgHeight) {
+        img.classList.add("parallax-effect");
+      } else {
+        img.classList.remove("parallax-effect");
+      }
+    });
+  });
+</script>
+
+<script>
+  var url = API_URL + `/v1/landing-page/feature?limit=4&flag=pi`;
+
+  function getProdukKecerdasan() {}
+
+  function getKecerdasan() {
+    $.get(url, function (res) {
+      res.data.sort((a, b) => b.id - a.id);
+
+      var fitur = "";
+
+      $.each(res.data, function (index, item) {
+        var colClass = index === 0 || index === 3 ? "col-md-8" : "col-md-4";
+        var dataAos = index % 2 === 0 ? "fade-right" : "fade-left";
+        var colClass = index === 0 || index === 3 ? "col-md-8" : "col-md-4";
+        var sizeCard =
+          index === 0 || index === 3 ? "width: 275px" : "width: 275px";
+
+        fitur += `
+        <div class="col-md-3 mt-5 mb-1" data-aos="${dataAos}">
+          <div class=" card  p-3  shadow " style=";border-radius:20px;
+            height: 340px ;
+            position:relative">
+            <img src="${item.image}" alt="" width="64px"  class="my-3 " />
+            <h2 style="
+                color: #000;
+                font-family: Poppins;
+                font-size: 22px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 32px; /* 133.333% */
+            " >${item.title}</h2>
+            <p style="  color: #555;
+              font-family: Plus Jakarta Sans;
+              font-size: 14px;
+              font-style: normal;
+              width: 229px
+              font-weight: 400;
+              line-height: 24px;position:absolute; margin-top:170px">
+  ${item.description}</p>
+          </div>
+        </div>  
+      `;
+      });
+      $("#featured").html(fitur);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    getKecerdasan();
+  });
+</script>

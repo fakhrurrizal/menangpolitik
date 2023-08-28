@@ -1,0 +1,149 @@
+:root {
+  --color-blue: #1e57a2;
+  --color-black: #121212;
+  --color-purple: #c084fc;
+  --color-purple-strong: #9333ea;
+  --color-abu: #555555;
+  --color-orange: #f97316;
+}
+a {
+  text-decoration: none;
+  font-size: inherit;
+  color: inherit;
+}
+.chat-left {
+  width: 300px;
+  margin-bottom: 10px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  background: #7e22ce;
+  color: white;
+  padding: 12px;
+  border-radius: 12px 12px 12px 0px;
+}
+
+.chat-right {
+  width: 300px;
+  margin-bottom: 10px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  background: #d8b4fe;
+  color: var(--color-black);
+  padding: 12px;
+  border-radius: 12px 12px 0px 12px;
+}
+
+.chat-left-pks {
+  width: 300px;
+  margin-bottom: 10px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  background: #ea580c;
+  color: white;
+  padding: 12px;
+  border-radius: 12px 12px 12px 0px;
+}
+.chat-right-pks {
+  width: 300px;
+  margin-bottom: 10px;
+
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  background: #fdba74;
+  color: var(--color-black);
+  padding: 12px;
+  border-radius: 12px 12px 0px 12px;
+}
+
+
+
+
+.btn-login {
+  background-color: var(--color-purple-strong);
+  color: #ffffff;
+  width: 100%;
+}
+
+.btn-daftar {
+  background-color: "#ffffff";
+  color: #555555;
+  width: 100%;
+  font-weight: 400;
+  line-height: 140%;
+  border: 1px solid gray;
+}
+
+.fitur-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 32px;
+  width: 296px;
+  height: 253px;
+  background: #f3e8ff;
+  border-radius: 12px;
+  margin: auto;
+  margin-bottom: 40px;
+}
+
+.fitur-box span {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  margin-top: 16px;
+  text-align: center;
+}
+.fitur-box p {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.mt-100 {
+  margin-top: 100px;
+}
+
+.bg-purple {
+  background-color: var(--color-purple);
+}
+.bg-purple-05 {
+  background-color: #f3e8ff;
+}
+.item-testimoni {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  border-radius: 0.5rem !important;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  padding: 40px;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.bg-pks {
+  background-color: #ff5001;
+}
+
+.error {
+  color: red;
+}

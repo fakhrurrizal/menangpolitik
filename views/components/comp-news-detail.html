@@ -1,0 +1,344 @@
+<style>
+    .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* .bg-company {
+        background-color: #5f12ad;
+    } */
+    
+    .breadcrumb {
+        background-color: transparent;
+        font-family: Poppins;
+        color: #121212;
+        font-weight: 500;
+        font-size: 17px;
+        margin-left: -14px !important;
+    }
+    
+    .breadcrumb-item {
+        background-color: transparent;
+    }
+    
+    .breadcrumb li.active a {
+        color: blue;
+    }
+    
+    .category__news_list {
+        color: #616161;
+        font-family: Poppins;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+        text-transform: capitalize;
+        margin-top: -15px;
+    }
+    
+    .list__berita_news {
+        color: #022b55;
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 22px;
+        font-size: 13px !important;
+    }
+    
+    .list__category {
+        color: #121212;
+        font-size: 16px;
+        font-weight: 600;
+        font-family: Poppins;
+    }
+    
+    #list_tag {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .card__tags {
+        text-decoration: none;
+        color: #000;
+    }
+    
+    .card {
+        background-color: transparent;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 15px;
+        font-weight: 500;
+        font-family: Poppins;
+    }
+</style>
+</head>
+<div class="container py-2" style="margin-top: 100px">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb" id="breadcrumb">
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="mb-5">
+
+                <h1 class="h3" style="font-weight: 600;color: #022b55; font-size: 29px; line-height: 42px; font-family:Poppins" id="title">{{.Title}}</h1>
+                <div class="row mt-5 px-3" style="justify-content: space-between">
+                    <div>
+                        <h3 style="font-weight: 600; font-size: 20px; color: #121212;" id="author">{{.Author}}</h3>
+                        <p style="font-weight: 500; font-size: 16px; color: #121212;" id="create_at">{{.CreatedAt}}</p>
+                    </div>
+                    <div style="color: #121212;font-family: Poppins;font-size: 16px" class="row">
+                        <span >Bagikan Ke : </span>
+                      <div class="mr-3">
+                        <a href="#" class="mx-1" onclick="shareToFacebook()"><img src="/assets/images/fb.svg" alt="Facebook" /></a>
+                        <a href="#" class="mx-1" onclick="shareToWhatsApp()"><img src="/assets/images/whatsapp.svg" alt="WhatsApp" /></a>
+                        <a href="#" class="mx-1" onclick="shareToTwitter()"><img src="/assets/images/twitter.svg" alt="Twitter" /></a>
+                        <a href="#" class="mx-1" onclick="shareToInstagram()"><img src="/assets/images/instagram.svg" alt="Instagram" /></a>
+                        <a href="#" class="mx-1" onclick="copyURL()" data-toggle="popover" data-placement="bottom" data-content="URL telah disalin!" data-trigger="manual"><img src="/assets/images/link.svg" alt="Copy URL" /></a>
+                      </div>
+                       <div style="font-size: 16px;font-weight: 500;line-height:18px;margin-right: 5px;"class="mr-3" > <span style="display: block;text-align: center;">{{.Shared}}</span>
+                        <span>dibagikan</span></div>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <img src="`{{.Thumbnail}}`" alt="{{.Title}}" class="thumbnail img-fluid rounded-lg shadow" style="width: 100%;" />
+                    <div>
+                        <span style="font-size: 14px; font-style: italic;font-family: Poppins;line-height: 10px;">{{.Description}}</span>
+                    </div>
+                </div>
+                <div class="mt-5" style="text-align: justify">
+                    <p style="font-family: 'Poppins'; font-style: normal; font-weight: 400; font-size: 15px;" id="description">
+                        {{.Body}};
+                    </p>
+                </div>
+                <div class="mt-3 ">
+                    <hr style="height: 2px;color: #121212;">
+                    <!-- <a href="/wawasan" class="btn btn-daftar">Kembali Ke Wawasan</a> -->
+                    <span style="font-size: 16px;font-weight: 600;font-family: Poppins; color: #121212;">Tags berita :</span>
+                    <div id="list_tag" class="mt-3">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <span style="font-family: Poppins; font-weight: 600;color: #121212;">Berita Terbaru</span>
+                <hr style="
+                  height: 3px;
+                  border: 0;
+                  background: linear-gradient(to right, #460a83 50%, #7c7d8a 50%);
+                " />
+                <div id="news_category"></div>
+            </div>
+
+            <div class="mt-5">
+                <span style="font-family: Poppins; font-weight: 600;color: #121212;">Kategori Terpopuler</span>
+                <hr style="
+                  height: 3px;
+                  border: 0;
+                  background: linear-gradient(to right, #460a83 50%, #7c7d8a 50%);
+                " />
+                <div id="category_populer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        ListCategory();
+    });
+    const Tags = "{{.Tags}}"
+
+    const Thumbnail = "{{.Thumbnail}}";
+
+    const imageElement = document.querySelector(".thumbnail");
+
+    imageElement.src = Thumbnail;
+
+    const TagsArray = Tags.split(", ");
+
+    function createTagCard(tag) {
+        return `
+              <a href="/news-tags/${tag}" class="card__tags"><div class="card px-3 py-0">${tag}</div> </a>
+          `;
+    }
+
+    const listTagsElement = document.getElementById("list_tag"); 
+
+    let tagsCard = "";
+
+    TagsArray.forEach(function(tag) {
+        tagsCard += createTagCard(tag);
+    });
+
+    listTagsElement.innerHTML = tagsCard;
+
+    const newsTitle = "{{.Title}}";
+    const categoryName = "{{.CategoryName}}";
+    const categoryId = "{{.CategoryId}}";
+
+    const breadcrumbElement = document.getElementById("breadcrumb");
+
+    const homeBreadcrumb = document.createElement("li");
+    homeBreadcrumb.classList.add("breadcrumb-item");
+    homeBreadcrumb.innerHTML = '<a href="/wawasan">News</a>';
+    breadcrumbElement.appendChild(homeBreadcrumb);
+
+    const newsCategoryBreadcrumb = document.createElement("li");
+    newsCategoryBreadcrumb.classList.add("breadcrumb-item");
+    newsCategoryBreadcrumb.innerHTML = `<a href="/news-category/${categoryId}">${categoryName}</a>`;
+    breadcrumbElement.appendChild(newsCategoryBreadcrumb);
+
+
+    function ListCategory() {
+        var url = API_URL + `/v1/landing-page/news?limit=5&order=id&sort=DESC&page=1`
+        var urlCategory = API_URL + `/v1/landing-page/news/category?limit=20`;
+        var categoryHTML = "";
+
+        $.get(url, function(res) {
+            $.each(res.data, function(index, categoryItem) {
+                categoryHTML += `
+            <div class="d-flex mt-3" style="align-items: center;">
+              <a href="/news/${categoryItem.category.string}/${categoryItem.slug}" style="display: inline-block; vertical-align: top;">
+                <img src="${categoryItem.image}" alt="${categoryItem.title}" width="80px" height="60px" style="float: left; margin-right: 10px; border-radius: 5px;" />
+              </a>
+              <div style="display: inline-block; vertical-align: top;" class="ml-4">
+                <h4 class="list__berita_news text-truncate-2" style="font-size: 9px; font-family: Poppins; margin: 0;">
+                  <a href="/news/${categoryItem.category.string}/${categoryItem.slug}">${categoryItem.title}</a>
+                </h4>
+                <span class="category__news_list">${categoryItem.category.string}</span>
+              </div>
+            </div>
+          `;
+            });
+            $("#news_category").html(categoryHTML);
+        });
+
+
+        $.get(urlCategory, function(response) {
+            var list_category = "";
+
+            $.each(response.data, function(index, item) {
+                var categoryNumber = index + 1;
+                list_category += `
+        <div>
+          <div style="line-height: 10px;color:#121212; font-weight:600">
+            ${categoryNumber}.<a href="/news-category/${item.id}" class="tags__category ml-2">
+            <span>  ${item.name}</span>
+          </a>
+          <hr />
+          </div>
+        </div>
+            `;
+            });
+            $("#category_populer").html(list_category);
+        });
+
+    }
+
+
+    var currentURL = new URL(window.location.href);
+    var title = "{{.Title}}";
+    var articleURL = encodeURIComponent(currentURL);
+    var IdNews = "{{.ID}}"
+
+    function SharedNews(id){
+        var url = API_URL + "/v1/landing-page/news/count-share/"+ id;
+
+        fetch(url, {
+            method: "PUT",
+            headers: {
+            "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            console.log(data);
+            })
+            .catch((error) => {
+            console.error("Error:", error);
+            });
+    }
+
+
+    function shareToFacebook() {
+        var shareURL = "https://www.facebook.com/sharer/sharer.php?u=" + articleURL;
+        window.open(shareURL, "_blank");
+        SharedNews(IdNews)
+    }
+
+    function shareToWhatsApp() {
+        var shareText = title + " Lihat selengkapnya : " + articleURL;
+        var shareURL = "https://api.whatsapp.com/send/?text=" + shareText;
+        window.open(shareURL, "_blank");
+        SharedNews(IdNews)
+    }
+
+    function shareToTwitter() {
+        var shareURL = "https://twitter.com/intent/tweet?text=" + articleURL;
+        window.open(shareURL, "_blank");
+        SharedNews(IdNews)
+    }
+
+    function shareToInstagram() {
+        var shareURL = "https://www.instagram.com/?url=" + articleURL;
+        window.open(shareURL, "_blank");
+        SharedNews(IdNews)
+    }
+
+    function copyURL() {
+        var dummyElement = document.createElement("textarea");
+        dummyElement.value = window.location.href;
+        document.body.appendChild(dummyElement);
+        dummyElement.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummyElement);
+
+        $('[data-toggle="popover"]').popover("show");
+        setTimeout(function() {
+            $('[data-toggle="popover"]').popover("hide");
+        }, 2000);
+    }
+
+    $(function() {
+        AOS.init();
+        var url = API_URL + `/v1/landing-page/footer/all`;
+        $.get(url, function(res) {
+            var footer = "";
+            $.each(res.data, function(index, item) {
+                var menuItems = "";
+                $.each(item.children, function(childIndex, childItem) {
+                    const image = childItem.image ? `<img src="${childItem.image}" alt="${childItem.title}" width="18px" height="100%"/>` : "";
+                    menuItems += `<li style="display:flex">${image}<a href="${childItem.link}" class="mx-1">${childItem.title}</a></li>`;
+                });
+
+                footer += `
+                    <div class="col-lg-4">
+                      <div class="footer-widget footer-widget__links">
+                        <h3 class="footer-widget__title">${item.title}</h3>
+                        <div class="footer-widget__links-wrap" style="width:15rem">
+                          <ul class="list-unstyled">
+                            ${menuItems}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+            });
+
+            $("#footer").html(footer);
+        });
+
+        var currentPath = window.location.pathname;
+        if (currentPath != "/") {
+            $("#header-nav").css("background", "var(--thm-black)");
+        }
+
+    });
+</script>

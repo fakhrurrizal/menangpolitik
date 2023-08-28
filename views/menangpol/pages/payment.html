@@ -1,0 +1,204 @@
+<div class="bg-white mt-100">
+  <div class="container">
+    <div class="row py-5" style="font-family: 'Plus Jakarta Sans'">
+      <div class="col-md-7">
+        <div>
+          <h1 class="font-weight-bold">Checkout</h1>
+        </div>
+        <div class="d-flex">
+          <hr />
+          <hr />
+          <hr />
+        </div>
+        <div class="mt-3">
+          <h3 class="font-weight-bold">Pilih Metode Pembayaran-mu</h3>
+          <p>Yuk, pilih cara bayar yang kamu mau!</p>
+        </div>
+        <div id="paymentMetod"></div>
+      </div>
+      <div class="col-md-5">
+        <div class="card mt-4 mb-5 shadow rounded-md" style="background: rgba(235, 235, 235, 0.5)">
+          <div class="card-header p-0" style="background: #fbf8fd; border-radius: 12px 12px 0 0">
+            <h5 style="font-style: normal; font-weight: 600; font-size: 32px; line-height: 42px">Order Summary</h5>
+          </div>
+          <div class="card-body">
+            <div id="listSummary"></div>
+            <hr class="m-0 mb-2" style="border: 1px solid #cfabf7" />
+            <div>
+              <h6 class="font-weight-bold">Addon</h6>
+              <div id="listSummaryAddon"></div>
+            </div>
+            <hr style="border: none; border-top: 2px solid #cfabf7" />
+            <div class="d-flex justify-content-between font-weight-bold">
+              <p>Subtotal</p>
+              <p>Rp <span id="total"></span></p>
+            </div>
+            <div class="d-flex justify-content-end">
+              <p style="font-size: 12px">Total diatas sudah termasuk PPN 11%</p>
+            </div>
+            <div class="card" id="pilihanPayment"></div>
+            <div class="mt-2 mb-5">
+              <button id="finish_payment" class="bg-purple btn text-white btn-block font-weight-bold" onclick="finish_payment()">
+                Lanjutkan
+              </button>
+              <button  class="mt-3 btn btn-block font-weight-bold" onclick="backToAddon()" >
+                Kembali ke Konfirmasi Order
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function backToAddon() {
+    window.location.href = "/addon"; 
+  }
+
+  let selectedCard = null;
+
+  function toggleBorder(element) {
+    if (selectedCard !== null) {
+      selectedCard.style.border = "";
+      selectedCard.style.backgroundColor = "";
+    }
+
+    if (selectedCard === element) {
+      selectedCard = null;
+    } else {
+      element.style.border = "2px solid purple";
+      element.style.backgroundColor = "#f3e8ff";
+      selectedCard = element;
+      var obj = {
+        code: selectedCard.getAttribute("data-code"),
+        name: selectedCard.getAttribute("data-name"),
+        image_icon: selectedCard.getAttribute("data-image"),
+      };
+      SaveLocalStorage("selected_payment", obj);
+      showPilihan();
+    }
+  }
+
+  function showPilihan() {
+    var obj = GetLocalStorage("selected_payment");
+    if (obj !== undefined) {
+      $("#pilihanPayment").html(`<img src="${obj.image_icon}" class="img-fluid" style="height: 50px; object-fit: contain"/>`);
+    }
+  }
+
+  function finish_payment() {
+    u = cekLogedIn();
+    if (u) {
+      var payment = GetLocalStorage("selected_payment");
+      var products = [];
+      $.each(cartLS.list(), function (i, order) {
+        products.push({
+          id_product: parseInt(order.id),
+          name: order.name,
+          qty: order.quantity,
+        });
+      });
+      var data = {
+        card_detail: {
+          card_number: 0,
+          cvv: 0,
+          exp_month: 0,
+          exp_year: 0,
+        },
+        payment_method: payment.code,
+        products: products,
+      };
+      console.log(JSON.stringify("data", data));
+
+      $.ajax({
+        url: API_URL + `/v1/transactions`,
+        type: "POST",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", u.state.value.accessToken);
+        },
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function (res) {
+          if (res.status == 200) {
+            cartLS.destroy();
+            location.href = "/invoice/" + res.data.invoice_id;
+          }
+        },
+        error: function (xhr, status, error) {
+          alert(error);
+        },
+      });
+    } else {
+      location.href = "/login?next=/payment";
+    }
+  }
+
+  function renderItem() {
+    arr = cartLS.list();
+    var listKanan = "";
+    var listKananAddon = "";
+    $.each(arr, function (i, product) {
+      if (product.produk == "utama") {
+        listKanan += `
+        <div class="mt-4">
+          <p class="text-purple font-weight-bold">${product.region} - Pileg</p>
+          <p class="font-weight-bold">${product.pileg}</p>
+          <div class="d-flex justify-content-between mt-4">
+            <p>Harga</p>
+            <p>Rp ${Numbering(product.price * product.quantity)}</p>
+          </div>
+        </div>
+
+      `;
+      }
+
+      if (product.produk == "addon") {
+        listKananAddon += `
+        <div class="d-flex justify-content-between">
+            <p>${product.name}</p>
+            <p>Rp ${Numbering(product.price * product.quantity)}</p>
+          </div>
+      `;
+      }
+    });
+    $("#listSummary").html(listKanan);
+    $("#listSummaryAddon").html(listKananAddon);
+    var subtotal = cartLS.total();
+    $("#total").html(Numbering(subtotal));
+  }
+
+  function getAllPayment() {
+    var url = API_URL + `/v1/payment`;
+    $.get(url, function (res) {
+      var card = "";
+      $.each(res.data, function (index, obj) {
+        var chanels = obj.channels;
+        var htmlChan = "";
+        $.each(chanels, function (i, ch) {
+          htmlChan += `
+              <div id="${ch.code}" class="card p-1 m-2 bg-white cursor-pointer" style="height: 40px; width: 120px" onclick="toggleBorder(this)" data-code="${ch.code}" data-name="${ch.name}" data-image="${ch.image_icon}">
+                <img src="${ch.image_icon}" class="img-fluid" style="height: 30px; object-fit:contain">
+              </div>
+            `;
+        });
+        card += `
+        <div class="mt-4 card p-3" style="background-color: #fbf8fd">
+            <h4 class="mb-2 font-weight-bold">${obj.name}</h4>
+            <div class="d-flex flex-wrap justify-content-around">
+              ${htmlChan}
+            </div>
+        </div>
+        `;
+      });
+      $("#paymentMetod").html(card);
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    getAllPayment();
+    renderItem();
+    showPilihan();
+  });
+</script>
