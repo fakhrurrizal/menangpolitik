@@ -347,26 +347,49 @@
           var newsUrl = API_URL + `/v1/landing-page/news/${id}`;
           $.get(newsUrl, function (res) {});
         }
+
+        
+    function SharedNews(id){
+        var url = API_URL + "/v1/landing-page/news/count-share/"+ id;
+
+        fetch(url, {
+            method: "PUT",
+            headers: {
+            "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+            console.log(data);
+            })
+            .catch((error) => {
+            console.error("Error:", error);
+            });
+    }
       
         function shareToFacebook() {
           var shareURL = "https://www.facebook.com/sharer/sharer.php?u=" + articleURL;
           window.open(shareURL, "_blank");
+          SharedNews(IdNews)
         }
       
         function shareToWhatsApp() {
           var shareText =  title  + " Lihat selengkapnya : " + articleURL;
           var shareURL = "https://api.whatsapp.com/send/?text=" + shareText;
           window.open(shareURL, "_blank");
+          SharedNews(IdNews)
         }
       
         function shareToTwitter() {
           var shareURL = "https://twitter.com/intent/tweet?text=" + articleURL;
           window.open(shareURL, "_blank");
+          SharedNews(IdNews)
         }
       
         function shareToInstagram() {
           var shareURL = "https://www.instagram.com/?url=" + articleURL;
           window.open(shareURL, "_blank");
+          SharedNews(IdNews)
         }
       
         function copyURL() {
