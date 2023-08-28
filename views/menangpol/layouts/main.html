@@ -539,6 +539,26 @@
   });
 </script>
     <script>
+
+      const keyAuth = "telin-auth";
+
+      function cekLogedIn() {
+        var user = localStorage.getItem(keyAuth);
+        if (user) {
+          var obj = JSON.parse(user);
+          if (obj !== null) {
+            return obj;
+          }
+        } else {
+          return false;
+        }
+      }
+
+      function logOut() {
+  localStorage.removeItem(keyAuth);
+}
+
+
       AOS.init();
       $(function () {
         getFooter();
